@@ -24,10 +24,10 @@ return new class extends Migration
             $table->string("image");
         });
 
-        Schema::create('favoritesList_piece', function (Blueprint $table) {
+        Schema::create('favorites_list_piece', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('favoriteList_id')->constrained()->onDelete("cascade");
+            $table->foreignId('favorites_list_id')->constrained()->onDelete("cascade");
             $table->foreignId('piece_id')->constrained()->onDelete("cascade");
         });
     }
@@ -40,6 +40,6 @@ return new class extends Migration
     public function down()
     {
         Schema::dropIfExists('pieces');
-        Schema::dropIfExists('favoritesList_piece');
+        Schema::dropIfExists('favorites_list_piece');
     }
 };
