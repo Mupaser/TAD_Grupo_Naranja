@@ -64,4 +64,8 @@ class User extends Authenticatable implements MustVerifyEmail
     public function favoritesList(){
         return $this->hasOne('App\Models\FavoritesList');
     }
+
+    public function cart(){
+        return $this->hasOne("App\Models\Cart");
+    }
 }

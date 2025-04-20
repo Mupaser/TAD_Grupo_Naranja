@@ -15,10 +15,11 @@ return new class extends Migration
     {
         Schema::create('order_lines', function (Blueprint $table) {
             $table->id();
+            $table->string("pieceName");
             $table->integer('number');
             $table->double('totalPrice');
             $table->foreignId('order_id')->nullable()->constrained()->onDelete('cascade');
-            $table->foreignId('piece_id')->constrained()->onDelete('set null');
+            $table->foreignId('piece_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamps();
         });
     }

@@ -5,12 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class OrderLine extends Model
+class CartLine extends Model
 {
     use HasFactory;
 
-    public function order(){
-        return $this->belongsTo('App\Models\Order');
+    public function cart(){
+        return $this->belongsTo("App\Models\Cart");
     }
 
     public function piece(){
