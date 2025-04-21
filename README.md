@@ -32,6 +32,8 @@ Payment {
 }
 Address {
 	primaryKey id
+    string country
+    string city
 	string street
 	integer zipCode
 	foreignKey user_id
@@ -54,7 +56,8 @@ Order {
 	foreignKey discount_id
 }
 OrderLine {
-	primary id
+	primaryKey id
+    string pieceName
 	integer number
 	double totalPrice
 	foreignKey order_id
@@ -82,6 +85,7 @@ CartLine {
 }
 Piece {
 	primaryKey id
+    string name
 	double price
 	enum estate
 	double offer
@@ -98,19 +102,19 @@ Category {
 	string name
 	text description
 }
-Rol ||--o{ User : assigned
-Payment ||--o{ User : selected
-User ||--|| Address : have
-User ||--o{ Order : purchase
+Rol |o--o{ User : assigned
+Payment |o--o{ User : selected
+User ||--o{ Address : have
+User |o--o{ Order : purchase
 User ||--|| FavoritesList : have
 User ||--|| Cart : have
 Discount |o--o| Order : used
-Order ||--|{ OrderLine : have
+Order |o--|{ OrderLine : have
 Cart ||--o{ CartLine : have
-Piece ||--o{ OrderLine : belongs
+Piece |o--o{ OrderLine : belongs
 FavoritesList ||--o{ FavoritesList_Piece : have
 Piece ||--o{ FavoritesList_Piece : belongs
-Piece ||--o{ CartLine : belongs
+Piece |o--o{ CartLine : belongs
 Piece ||--o{ Category_Piece : belongs
 Category ||--o{ Category_Piece : have
 ```
