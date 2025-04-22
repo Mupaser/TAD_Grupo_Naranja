@@ -55,7 +55,7 @@ class OrderLineController extends Controller
      */
     public function show(OrderLine $orderLine)
     {
-        return view('', compact('order'));
+        return view('', compact('orderLine'));
     }
 
     /**
@@ -66,7 +66,7 @@ class OrderLineController extends Controller
      */
     public function edit(OrderLine $orderLine)
     {
-        return view('', compact('order'));
+        return view('', compact('orderLine'));
     }
 
     /**
