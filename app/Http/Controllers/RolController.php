@@ -14,7 +14,7 @@ class RolController extends Controller
      */
     public function index()
     {
-        $rols = Rol::all();
+        $rols = Rol::paginate(10);
         return view('', compact('rols'));
     }
 
@@ -39,6 +39,7 @@ class RolController extends Controller
         $rol = new Rol();
         $rol->name = $request->name;
         $rol->description = $request->description;
+        $rol->save();
         return view('', compact('rol'));
     }
 
@@ -75,6 +76,7 @@ class RolController extends Controller
     {
         $rol->name = $request->name;
         $rol->description = $request->description;
+        $rol->save();
         return view('', compact('rol'));
     }
 
