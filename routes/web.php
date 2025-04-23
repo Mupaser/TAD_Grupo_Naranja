@@ -1,13 +1,10 @@
 <?php
 
-<<<<<<< HEAD
 use App\Http\Controllers\OrderLineController;
 use App\Http\Controllers\PieceController;
-=======
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
->>>>>>> 3e7c082e6c9e4ec7ddd3f2546d6e649a40854f0b
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\PaymentController;
@@ -48,9 +45,7 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
     return view('auth.dashboard');
-<<<<<<< HEAD
     })->middleware(['auth','verified']);
-=======
 })->middleware(['auth','verified']);
 
 Route::controller(UserController::class)->group(function () {
@@ -102,4 +97,3 @@ Route::controller(PaymentController::class)->group(function () {
     Route::put('payments/{payment}', 'update')->name('payment.update');
     Route::delete('payments/{payment}', 'destroy')->name('payment.destroy');
 });
->>>>>>> 3e7c082e6c9e4ec7ddd3f2546d6e649a40854f0b
