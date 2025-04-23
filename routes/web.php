@@ -1,8 +1,16 @@
 <?php
 
+<<<<<<< HEAD
 use App\Http\Controllers\OrderLineController;
 use App\Http\Controllers\PieceController;
+=======
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\RolController;
+use App\Http\Controllers\UserController;
+>>>>>>> 3e7c082e6c9e4ec7ddd3f2546d6e649a40854f0b
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\AddressController;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,9 +43,63 @@ Route::controller(OrderLineController::class)->group(function () {
 });
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 Route::get('/home', function () {
     return view('auth.dashboard');
+<<<<<<< HEAD
     })->middleware(['auth','verified']);
+=======
+})->middleware(['auth','verified']);
+
+Route::controller(UserController::class)->group(function () {
+    Route::get('users','index')->name('users.index');
+    Route::get('users/crear', 'create')->name('users.create');
+    Route::post('users', 'store')->name('users.store');
+    Route::delete('users/{user}','destroy')->name('users.destroy');
+    Route::get('users/{user}', 'show')->name('users.show');
+    Route::get('users/{user}/editar', 'edit')->name('users.edit');
+    Route::put('users/{user}', 'update')->name('users.update');
+});
+
+Route::controller(RolController::class)->group(function () {
+    Route::get('rols','index')->name('rols.index');
+    Route::get('rols/crear', 'create')->name('rols.create');
+    Route::post('rols', 'store')->name('rols.store');
+    Route::delete('rols/{rol}','destroy')->name('rols.destroy');
+    Route::get('rols/{rol}', 'show')->name('rols.show');
+    Route::get('rols/{rol}/editar', 'edit')->name('rols.edit');
+    Route::put('rols/{rol}', 'update')->name('rols.update');
+});
+
+Route::controller(OrderController::class)->group(function () {
+    Route::get('orders','index')->name('orders.index');
+    Route::get('orders/crear', 'create')->name('orders.create');
+    Route::post('orders', 'store')->name('orders.store');
+    Route::delete('orders/{user}','destroy')->name('orders.destroy');
+    Route::get('orders/{order}', 'show')->name('orders.show');
+    Route::get('orders/{order}/editar', 'edit')->name('orders.edit');
+    Route::put('orders/{order}', 'update')->name('orders.update');
+});
+
+Route::controller(AddressController::class)->group(function () {
+    Route::get('addresses', 'index')->name('address.index');
+    Route::get('addresses/create', 'create')->name('address.create');
+    Route::post('addresses/store', 'store')->name('address.store');
+    Route::get('addresses/{address}', 'show')->name('address.show');
+    Route::get('addresses/{address}/edit', 'edit')->name('address.edit');
+    Route::put('addresses/{address}', 'update')->name('address.update');
+    Route::delete('addresses/{address}', 'destroy')->name('address.destroy');
+});
+
+Route::controller(PaymentController::class)->group(function () {
+    Route::get('payments', 'index')->name('payment.index');
+    Route::get('payments/create', 'create')->name('payment.create');
+    Route::post('payments/store', 'store')->name('payment.store');
+    Route::get('payments/{payment}', 'show')->name('payment.show');
+    Route::get('payments/{payment}/edit', 'edit')->name('payment.edit');
+    Route::put('payments/{payment}', 'update')->name('payment.update');
+    Route::delete('payments/{payment}', 'destroy')->name('payment.destroy');
+});
+>>>>>>> 3e7c082e6c9e4ec7ddd3f2546d6e649a40854f0b

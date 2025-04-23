@@ -15,7 +15,7 @@ class RolController extends Controller
     public function index()
     {
         $rols = Rol::paginate(10);
-        return view('', compact('rols'));
+        return view('rols.index', compact('rols'));
     }
 
     /**
@@ -25,7 +25,7 @@ class RolController extends Controller
      */
     public function create()
     {
-        return view();
+        return view('rols.create');
     }
 
     /**
@@ -40,7 +40,7 @@ class RolController extends Controller
         $rol->name = $request->name;
         $rol->description = $request->description;
         $rol->save();
-        return view('', compact('rol'));
+        return redirect()->route('rols.show',$rol);
     }
 
     /**
@@ -51,7 +51,7 @@ class RolController extends Controller
      */
     public function show(Rol $rol)
     {
-        return view('', compact('rol'));
+        return view('rols.show', compact('rol'));
     }
 
     /**
@@ -62,7 +62,7 @@ class RolController extends Controller
      */
     public function edit(Rol $rol)
     {
-        return view('', compact('rol'));
+        return view('rols.edit', compact('rol'));
     }
 
     /**
@@ -77,7 +77,7 @@ class RolController extends Controller
         $rol->name = $request->name;
         $rol->description = $request->description;
         $rol->save();
-        return view('', compact('rol'));
+        return redirect()->route('rols.show',$rol);
     }
 
     /**
@@ -89,6 +89,6 @@ class RolController extends Controller
     public function destroy(Rol $rol)
     {
         $rol->delete();
-        return view();
+        return redirect()->route('rols.index');
     }
 }

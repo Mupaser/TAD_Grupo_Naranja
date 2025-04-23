@@ -15,7 +15,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::paginate(10);
-        return view('',compact('users'));
+        return view('users.index',compact('users'));
     }
 
     /**
@@ -25,7 +25,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view();
+        return view('users.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->rol_id = $request->rol_id;
         $user->save();
-        return view('', compact('user'));
+        return redirect()->route('users.show',$user);
     }
 
     /**
@@ -55,7 +55,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('', compact('user'));
+        return view('users.show', compact('user'));
     }
 
     /**
@@ -66,7 +66,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('', compact('user'));
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -85,7 +85,7 @@ class UserController extends Controller
         $user->phone = $request->phone;
         $user->rol_id = $request->rol_id;
         $user->save();
-        return view('', compact('user'));
+        return redirect()->route('users.show',$user);
     }
 
     /**
@@ -97,6 +97,6 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $user->delete();
-        return view();
+        return redirect()->route('users.index');
     }
 }

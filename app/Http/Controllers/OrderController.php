@@ -15,7 +15,7 @@ class OrderController extends Controller
     public function index()
     {
         $orders = Order::paginate(10);
-        return view('', compact('orders'));
+        return view('Orders.index', compact('orders'));
     }
 
     /**
@@ -25,7 +25,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return view();
+        return view('rols.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class OrderController extends Controller
         $order->payment = $request->payment;
         $order->user_id = $request->user_id;
         $order->save();
-        return view('', compact('order'));
+        return redirect()->route('rols.show',$order);
     }
 
     /**
@@ -55,7 +55,7 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        return view('', compact('order'));
+        return view('rols.show', compact('order'));
     }
 
     /**
@@ -66,7 +66,7 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        return view('', compact('order'));
+        return view('rols.edit', compact('order'));
     }
 
     /**
@@ -85,7 +85,7 @@ class OrderController extends Controller
         $order->payment = $request->payment;
         $order->user_id = $request->user_id;
         $order->save();
-        return view('', compact('order'));
+        return redirect()->route('rols.show',$order);
     }
 
     /**
@@ -97,6 +97,6 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         $order->delete();
-        return view();
+        return redirect()->route('rols.index');
     }
 }
