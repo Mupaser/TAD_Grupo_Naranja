@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Address;
 
-class AddressesController extends Controller
+class AddressController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -25,7 +25,7 @@ class AddressesController extends Controller
      */
     public function create()
     {
-        return view('');
+        return view('addresses.create');
     }
 
     /**
@@ -44,7 +44,7 @@ class AddressesController extends Controller
         $addresses->user_id = $request->user_id;
         
         $addresses->save();
-        return view('', compact('addresses'));        
+        return redirect()->route('addresses.show', $address);     
     }
 
     /**
@@ -55,7 +55,7 @@ class AddressesController extends Controller
      */
     public function show(Address $address)
     {
-        return view('', compact('address'));
+        return view('addresses.show', compact('address'));
     }
 
     /**
@@ -66,7 +66,7 @@ class AddressesController extends Controller
      */
     public function edit(Address $address)
     {
-        return view('', compact('address'));
+        return view('addresses.edit', compact('address'));
     }
     
 
@@ -86,7 +86,7 @@ class AddressesController extends Controller
         $address->user_id = $request->user_id;
         
         $addresses->save();
-        return view('address.update', compact('address'));   
+        return redirect()->route('addresses.show', $address); 
     }
 
     /**
@@ -98,6 +98,6 @@ class AddressesController extends Controller
     public function destroy(Address $address)
     {
         $address->delete();
-        return view('', compact('address'));
+        return redirect()->route('addresses.index');
     }
 }
