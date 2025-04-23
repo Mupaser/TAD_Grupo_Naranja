@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Payment;
 
-class PaymentsController extends Controller
+class PaymentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class PaymentsController extends Controller
     public function index()
     {
         $payments = Payment::paginate(10);
-        return view('', compact('payments'));
+        return view('payments.index', compact('payments'));
     }
 
     /**
@@ -25,7 +25,7 @@ class PaymentsController extends Controller
      */
     public function create()
     {
-        return view('');
+        return view('payments.create');
     }
 
     /**
@@ -40,7 +40,7 @@ class PaymentsController extends Controller
         $payment->name = $request->name;
 
         $payment->save();
-        return view('', compact('payment'));
+        return redirect('payments.create')->route('payments.show',$payment);
     }
 
     /**
@@ -51,7 +51,7 @@ class PaymentsController extends Controller
      */
     public function show(Payment $payment)
     {
-        return view('', compact('payment'));
+        return view('payments.show', compact('payment'));
     }
 
     /**
@@ -62,7 +62,7 @@ class PaymentsController extends Controller
      */
     public function edit(Payment $payment)
     {
-        return view('', compact('payment'));
+        return view('payments.edit', compact('payment'));
     }
 
     /**
@@ -77,7 +77,7 @@ class PaymentsController extends Controller
         $payment->name = $request->name;
 
         $payment->save();
-        return view('');
+        return redirect()->route('payments.show', $payment);
     }
 
     /**
@@ -89,6 +89,6 @@ class PaymentsController extends Controller
     public function destroy(Payment $payment)
     {
         $payment->delete();
-        return view('');
+        return redirect()->route('payments.index');
     }
 }
