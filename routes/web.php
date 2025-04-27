@@ -1,15 +1,20 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\OrderLineController;
 use App\Http\Controllers\PieceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\CartLineController;
 use App\Http\Controllers\FavoritesListController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\CartController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,7 +32,7 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
     return view('auth.dashboard');
-    })->middleware(['auth','verified']);
+})->middleware(['auth','verified']);
 
 Route::controller(UserController::class)->group(function () {
     Route::get('users','index')->name('users.index');
@@ -77,6 +82,26 @@ Route::controller(PaymentController::class)->group(function () {
     Route::get('payments/{payment}/edit', 'edit')->name('payments.edit');
     Route::put('payments/{payment}', 'update')->name('payments.update');
     Route::delete('payments/{payment}', 'destroy')->name('payments.destroy');
+});
+
+Route::controller(DiscountController::class)->group(function () {
+    Route::get('discounts', 'index')->name('discounts.index');
+    Route::get('discounts/create', 'create')->name('discounts.create');
+    Route::post('discounts/store', 'store')->name('discounts.store');
+    Route::get('discounts/{discount}', 'show')->name('discounts.show');
+    Route::get('discounts/{discount}/edit', 'edit')->name('discounts.edit');
+    Route::put('discounts/{discount}', 'update')->name('discounts.update');
+    Route::delete('discounts/{discount}', 'destroy')->name('discounts.destroy');
+});
+
+Route::controller(CartController::class)->group(function () {
+    Route::get('carts', 'index')->name('carts.index');
+    Route::get('carts/create', 'create')->name('carts.create');
+    Route::post('carts/store', 'store')->name('carts.store');
+    Route::get('carts/{cart}', 'show')->name('carts.show');
+    Route::get('carts/{cart}/edit', 'edit')->name('carts.edit');
+    Route::put('carts/{cart}', 'update')->name('carts.update');
+    Route::delete('carts/{cart}', 'destroy')->name('carts.destroy');
 });
 
 Route::controller(PieceController::class)->group(function () {
