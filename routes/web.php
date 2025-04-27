@@ -19,26 +19,6 @@ use App\Http\Controllers\PaymentController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::controller(PieceController::class)->group(function () {
-    Route::get('pieces','index')->name('pieces.index');
-    Route::get('pieces/crear', 'create')->name('pieces.create');
-    Route::post('pieces', 'store')->name('pieces.store');
-    Route::delete('pieces/{piece}','destroy')->name('pieces.destroy');
-    Route::get('pieces/{piece}', 'show')->name('pieces.show');
-    Route::get('pieces/{piece}/editar', 'edit')->name('pieces.edit');
-    Route::put('pieces/{piece}', 'update')->name('pieces.update');
-});
-
-Route::controller(OrderLineController::class)->group(function () {
-    Route::get('orderLines','index')->name('orderLines.index');
-    Route::get('orderLines/crear', 'create')->name('orderLines.create');
-    Route::post('orderLines', 'store')->name('orderLines.store');
-    Route::delete('orderLines/{orderLine}','destroy')->name('orderLines.destroy');
-    Route::get('orderLines/{orderLine}', 'show')->name('orderLines.show');
-    Route::get('orderLines/{orderLine}/editar', 'edit')->name('orderLines.edit');
-    Route::put('orderLines/{orderLine}', 'update')->name('orderLines.update');
-});
-
 Route::get('/', function () {
     return view('home');
 });
@@ -46,11 +26,10 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('auth.dashboard');
     })->middleware(['auth','verified']);
-})->middleware(['auth','verified']);
 
 Route::controller(UserController::class)->group(function () {
     Route::get('users','index')->name('users.index');
-    Route::get('users/crear', 'create')->name('users.create');
+    Route::get('users/create', 'create')->name('users.create');
     Route::post('users', 'store')->name('users.store');
     Route::delete('users/{user}','destroy')->name('users.destroy');
     Route::get('users/{user}', 'show')->name('users.show');
@@ -79,21 +58,41 @@ Route::controller(OrderController::class)->group(function () {
 });
 
 Route::controller(AddressController::class)->group(function () {
-    Route::get('addresses', 'index')->name('address.index');
-    Route::get('addresses/create', 'create')->name('address.create');
-    Route::post('addresses/store', 'store')->name('address.store');
-    Route::get('addresses/{address}', 'show')->name('address.show');
-    Route::get('addresses/{address}/edit', 'edit')->name('address.edit');
-    Route::put('addresses/{address}', 'update')->name('address.update');
-    Route::delete('addresses/{address}', 'destroy')->name('address.destroy');
+    Route::get('addresses', 'index')->name('addresses.index');
+    Route::get('addresses/create', 'create')->name('addresses.create');
+    Route::post('addresses/store', 'store')->name('addresses.store');
+    Route::get('addresses/{address}', 'show')->name('addresses.show');
+    Route::get('addresses/{address}/edit', 'edit')->name('addresses.edit');
+    Route::put('addresses/{address}', 'update')->name('addresses.update');
+    Route::delete('addresses/{address}', 'destroy')->name('addresses.destroy');
 });
 
 Route::controller(PaymentController::class)->group(function () {
-    Route::get('payments', 'index')->name('payment.index');
-    Route::get('payments/create', 'create')->name('payment.create');
-    Route::post('payments/store', 'store')->name('payment.store');
-    Route::get('payments/{payment}', 'show')->name('payment.show');
-    Route::get('payments/{payment}/edit', 'edit')->name('payment.edit');
-    Route::put('payments/{payment}', 'update')->name('payment.update');
-    Route::delete('payments/{payment}', 'destroy')->name('payment.destroy');
+    Route::get('payments', 'index')->name('payments.index');
+    Route::get('payments/create', 'create')->name('payments.create');
+    Route::post('payments/store', 'store')->name('payments.store');
+    Route::get('payments/{payment}', 'show')->name('payments.show');
+    Route::get('payments/{payment}/edit', 'edit')->name('payments.edit');
+    Route::put('payments/{payment}', 'update')->name('payments.update');
+    Route::delete('payments/{payment}', 'destroy')->name('payments.destroy');
+});
+
+Route::controller(PieceController::class)->group(function () {
+    Route::get('pieces','index')->name('pieces.index');
+    Route::get('pieces/crear', 'create')->name('pieces.create');
+    Route::post('pieces', 'store')->name('pieces.store');
+    Route::delete('pieces/{piece}','destroy')->name('pieces.destroy');
+    Route::get('pieces/{piece}', 'show')->name('pieces.show');
+    Route::get('pieces/{piece}/editar', 'edit')->name('pieces.edit');
+    Route::put('pieces/{piece}', 'update')->name('pieces.update');
+});
+
+Route::controller(OrderLineController::class)->group(function () {
+    Route::get('orderLines','index')->name('orderLines.index');
+    Route::get('orderLines/crear', 'create')->name('orderLines.create');
+    Route::post('orderLines', 'store')->name('orderLines.store');
+    Route::delete('orderLines/{orderLine}','destroy')->name('orderLines.destroy');
+    Route::get('orderLines/{orderLine}', 'show')->name('orderLines.show');
+    Route::get('orderLines/{orderLine}/editar', 'edit')->name('orderLines.edit');
+    Route::put('orderLines/{orderLine}', 'update')->name('orderLines.update');
 });

@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
-@section('content')
+@section('title','Home')
+
+@section('index')
 
 <p class="display-6">Hola mundo<p>
 
