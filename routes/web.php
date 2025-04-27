@@ -8,6 +8,8 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\CartLineController;
+use App\Http\Controllers\FavoritesListController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\CartController;
@@ -24,26 +26,6 @@ use App\Http\Controllers\CartController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::controller(PieceController::class)->group(function () {
-    Route::get('pieces','index')->name('pieces.index');
-    Route::get('pieces/crear', 'create')->name('pieces.create');
-    Route::post('pieces', 'store')->name('pieces.store');
-    Route::delete('pieces/{piece}','destroy')->name('pieces.destroy');
-    Route::get('pieces/{piece}', 'show')->name('pieces.show');
-    Route::get('pieces/{piece}/editar', 'edit')->name('pieces.edit');
-    Route::put('pieces/{piece}', 'update')->name('pieces.update');
-});
-
-Route::controller(OrderLineController::class)->group(function () {
-    Route::get('orderLines','index')->name('orderLines.index');
-    Route::get('orderLines/crear', 'create')->name('orderLines.create');
-    Route::post('orderLines', 'store')->name('orderLines.store');
-    Route::delete('orderLines/{orderLine}','destroy')->name('orderLines.destroy');
-    Route::get('orderLines/{orderLine}', 'show')->name('orderLines.show');
-    Route::get('orderLines/{orderLine}/editar', 'edit')->name('orderLines.edit');
-    Route::put('orderLines/{orderLine}', 'update')->name('orderLines.update');
-});
-
 Route::get('/', function () {
     return view('home');
 });
@@ -64,7 +46,7 @@ Route::controller(UserController::class)->group(function () {
 
 Route::controller(RolController::class)->group(function () {
     Route::get('rols','index')->name('rols.index');
-    Route::get('rols/crear', 'create')->name('rols.create');
+    Route::get('rols/create', 'create')->name('rols.create');
     Route::post('rols', 'store')->name('rols.store');
     Route::delete('rols/{rol}','destroy')->name('rols.destroy');
     Route::get('rols/{rol}', 'show')->name('rols.show');
@@ -74,7 +56,7 @@ Route::controller(RolController::class)->group(function () {
 
 Route::controller(OrderController::class)->group(function () {
     Route::get('orders','index')->name('orders.index');
-    Route::get('orders/crear', 'create')->name('orders.create');
+    Route::get('orders/create', 'create')->name('orders.create');
     Route::post('orders', 'store')->name('orders.store');
     Route::delete('orders/{user}','destroy')->name('orders.destroy');
     Route::get('orders/{order}', 'show')->name('orders.show');
@@ -120,4 +102,44 @@ Route::controller(CartController::class)->group(function () {
     Route::get('carts/{cart}/edit', 'edit')->name('carts.edit');
     Route::put('carts/{cart}', 'update')->name('carts.update');
     Route::delete('carts/{cart}', 'destroy')->name('carts.destroy');
+});
+
+Route::controller(PieceController::class)->group(function () {
+    Route::get('pieces','index')->name('pieces.index');
+    Route::get('pieces/create', 'create')->name('pieces.create');
+    Route::post('pieces', 'store')->name('pieces.store');
+    Route::delete('pieces/{piece}','destroy')->name('pieces.destroy');
+    Route::get('pieces/{piece}', 'show')->name('pieces.show');
+    Route::get('pieces/{piece}/editar', 'edit')->name('pieces.edit');
+    Route::put('pieces/{piece}', 'update')->name('pieces.update');
+});
+
+Route::controller(OrderLineController::class)->group(function () {
+    Route::get('orderLines','index')->name('orderLines.index');
+    Route::get('orderLines/create', 'create')->name('orderLines.create');
+    Route::post('orderLines', 'store')->name('orderLines.store');
+    Route::delete('orderLines/{orderLine}','destroy')->name('orderLines.destroy');
+    Route::get('orderLines/{orderLine}', 'show')->name('orderLines.show');
+    Route::get('orderLines/{orderLine}/editar', 'edit')->name('orderLines.edit');
+    Route::put('orderLines/{orderLine}', 'update')->name('orderLines.update');
+});
+
+Route::controller(CartLineController::class)->group(function () {
+    Route::get('cartLines','index')->name('cartLines.index');
+    Route::get('cartLines/create', 'create')->name('cartLines.create');
+    Route::post('cartLines', 'store')->name('cartLines.store');
+    Route::delete('cartLines/{cartLine}','destroy')->name('cartLines.destroy');
+    Route::get('cartLines/{cartLine}', 'show')->name('cartLines.show');
+    Route::get('cartLines/{cartLine}/editar', 'edit')->name('cartLines.edit');
+    Route::put('cartLines/{cartLine}', 'update')->name('cartLines.update');
+});
+
+Route::controller(FavoritesListController::class)->group(function () {
+    Route::get('favoritesLists','index')->name('favoritesLists.index');
+    Route::get('favoritesLists/create', 'create')->name('favoritesLists.create');
+    Route::post('favoritesLists', 'store')->name('favoritesLists.store');
+    Route::delete('favoritesLists/{favoritesList}','destroy')->name('favoritesLists.destroy');
+    Route::get('favoritesLists/{favoritesList}', 'show')->name('favoritesLists.show');
+    Route::get('favoritesLists/{favoritesList}/editar', 'edit')->name('favoritesLists.edit');
+    Route::put('favoritesLists/{favoritesList}', 'update')->name('favoritesLists.update');
 });
