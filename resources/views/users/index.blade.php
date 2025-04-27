@@ -28,16 +28,13 @@
     <!-- End Single Product -->
 </div>
 @endforeach
-<<<<<<< HEAD
 <div class="col-lg-3 col-md-6 col-12 mt-4">
         <button><a href="{{ route('users.create') }}">Create User</a></button>
     </div>
-=======
 @endsection
 @section('create')
 {{route('users.create')}}
 @endsection
 @section('paginate')
 {{ $users->links() }}
->>>>>>> c775434dcdab4c292a8253afe32ffdad8d0393ee
 @endsection
