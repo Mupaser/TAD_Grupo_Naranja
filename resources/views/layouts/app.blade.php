@@ -47,23 +47,29 @@
         <div class="topbar bg-primary">
             <div class="container">
                 <div class="row align-items-center justify-content-center">
-
-                    <div class="col-lg-8 col-md-8 col-12">
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="top-middle top-left">
+                            <ul class="menu-top-link useful-links">
+                                <li><a class="" href="/">Inicio</a></li>
+                                <li>
+                                    <div class="select-position">
+                                        <select id="select5">
+                                            <option value="0" selected>English</option>
+                                            <option value="1">Español</option>
+                                        </select>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-middle">
                             <ul class="useful-links">
-<<<<<<< HEAD
-                                <li><a href="{{ route('users.index') }}">Users</a></li>
-                                <li><a href="{{ route('orders.index') }}">Orders</a></li>
-                                <li><a href="#">Pieces</a></li>
-=======
-
                                 <li><a href="{{ route('users.index') }}">Users</a></li>
                                 <li><a href="{{ route('orders.index') }}">Orders</a></li>
                                 <li><a href="{{ route('pieces.index') }}">Pieces</a></li>
                                 <li><a href="{{ route('addresses.index') }}">Addresses</a></li>
                                 <li><a href="{{ route('payments.index') }}">Payments</a></li>
-
->>>>>>> 3e7c082e6c9e4ec7ddd3f2546d6e649a40854f0b
                             </ul>
                         </div>
                     </div>
@@ -96,7 +102,76 @@
                 </div>
             </div>
             <div class="row">
-                @yield('content')
+                @hasSection('index')
+                    @yield('index')
+                    @hasSection ('create')
+                    <div class="col-lg-3 col-md-6 col-12 ">
+                        <!-- Start Single Product -->
+                        <div class="single-product">
+                            <div class="button">
+                                <a href="@yield('create')" class="btn bg-primary w-100">Create +</a>
+                            </div>
+                        </div>
+                        <!-- End Single Product -->
+                    </div>
+                    @endif
+                    <div>@yield('paginate')</div> 
+                @elseif('single')
+                    <!-- Start Item Details -->
+                    <section class="item-details section">
+                        <div class="container">
+                            <div class="top-area">
+                                <div class="row align-items-center justify-content-center">
+                                    <div class="col-lg-6 col-md-12 col-12">
+                                        <div class="product-info">
+                                            <h3>@yield('single')<h3>
+                                            @hasSection('update')
+                                                <form class="form-group" action="@yield('update')" method="POST">
+                                                    @method('UPDATE')
+                                                    @csrf
+                                                    @yield('inputs')
+                                                    <div class="button">
+                                                        <button class="btn btn-primary w-100" type="submit">
+                                                            Edit
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            @endif
+                                            @hasSection('store')
+                                                <form class="form-group" action="@yield('store')" method="POST">
+                                                    @csrf
+                                                    @yield('inputs')
+                                                    <div class="button">
+                                                        <button class="btn btn-primary w-100" type="submit">
+                                                            Create
+                                                        </button>
+                                                    </div>
+                                                </form>
+                                            @endif
+                                            @hasSection('show')
+                                                @yield('show')
+                                                <div class="row">
+                                                    <div class="button col">
+                                                        <a href="@yield('edit')" class="btn bg-primary w-100">Edit</a>
+                                                    </div>
+                                                    <form class="col" action="@yield('delete')" method="post">
+                                                        @method('DELETE')
+                                                        @csrf
+                                                        <div class="button"><button type="submit" class="btn bg-primary w-100">Delete</button></div>
+                                                    </form>
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- End Item Details -->
+                @endif
+
+
+                
             </div>
         </div>
         </div>
@@ -118,11 +193,6 @@
         <!-- End Footer Bottom -->
     </footer>
     <!--/ End Footer Area -->
-
-    <!-- ========================= scroll-top ========================= -->
-    <a href="#" class="scroll-top">
-        <i class="lni lni-chevron-up"></i>
-    </a>
 
     <!-- ========================= JS here ========================= -->
     <!--<script src="assets/js/bootstrap.min.js"></script>
