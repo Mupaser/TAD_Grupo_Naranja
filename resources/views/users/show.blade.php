@@ -1,5 +1,4 @@
 @extends('layouts.app')
-<<<<<<< HEAD
 @section('title','Usuario')
 @section('content')
 
@@ -23,7 +22,6 @@
 <!-- End Item Details -->
 
 @endsection
-=======
 @section('title', 'User')
 @section('single')
     {{ $user->name }}
@@ -40,4 +38,3 @@
 @section('delete')
     {{ route('users.destroy', $user) }}
 @endsection
->>>>>>> c775434dcdab4c292a8253afe32ffdad8d0393ee
