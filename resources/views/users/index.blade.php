@@ -21,4 +21,7 @@
     <!-- End Single Product -->
 </div>
 @endforeach
+<div class="col-lg-3 col-md-6 col-12 mt-4">
+        <button><a href="{{ route('users.create') }}">Create User</a></button>
+    </div>
 @endsection

@@ -12,7 +12,7 @@
                         <h2 class="title">{{$user->name}}</h2>
                         <p class="info-text">Email: {{$user->emailAddress}}</p>
                         <p class="info-text">Telefono: {{$user->phone}}</p>
-                        <p class="info-text">Rol: {{$user->rol->name}}</p>
+                        <p class="info-text">Rol: {{$user->rol->rol_id}}</p>
                     </div>
                 </div>
             </div>

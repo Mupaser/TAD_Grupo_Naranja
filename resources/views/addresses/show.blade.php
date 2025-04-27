@@ -12,9 +12,9 @@
     <p>Street: {{ $address->street }}</p>
     <p>Zip Code: {{ $address->zipCode }}</p>
 
-    <button><a href="{{ route('address.edit') }}">Edit</a></button>
-    <button><a href="{{ route('address.index') }}">Back</a></button>
-    <form action="{{ route('address.destroy', $address->id) }}" method="POST" style="display:inline;">
+    <button><a href="{{ route('addresses.edit') }}">Edit</a></button>
+    <button><a href="{{ route('addresses.index') }}">Back</a></button>
+    <form action="{{ route('addresses.destroy', $address->id) }}" method="POST" style="display:inline;">
         @csrf
         @method('DELETE')
         <button type="submit">Delete</button>

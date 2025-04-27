@@ -51,11 +51,6 @@
                     <div class="col-lg-8 col-md-8 col-12">
                         <div class="top-middle">
                             <ul class="useful-links">
-<<<<<<< HEAD
-                                <li><a href="{{ route('users.index') }}">Users</a></li>
-                                <li><a href="{{ route('orders.index') }}">Orders</a></li>
-                                <li><a href="#">Pieces</a></li>
-=======
 
                                 <li><a href="{{ route('users.index') }}">Users</a></li>
                                 <li><a href="{{ route('orders.index') }}">Orders</a></li>
@@ -63,7 +58,6 @@
                                 <li><a href="{{ route('addresses.index') }}">Addresses</a></li>
                                 <li><a href="{{ route('payments.index') }}">Payments</a></li>
 
->>>>>>> 3e7c082e6c9e4ec7ddd3f2546d6e649a40854f0b
                             </ul>
                         </div>
                     </div>

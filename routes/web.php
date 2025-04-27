@@ -1,13 +1,18 @@
 <?php
 
+use Illuminate\Support\Facades\Route;
+
 use App\Http\Controllers\OrderLineController;
 use App\Http\Controllers\PieceController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RolController;
 use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AddressController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\DiscountController;
+use App\Http\Controllers\CartController;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -45,12 +50,11 @@ Route::get('/', function () {
 
 Route::get('/home', function () {
     return view('auth.dashboard');
-    })->middleware(['auth','verified']);
 })->middleware(['auth','verified']);
 
 Route::controller(UserController::class)->group(function () {
     Route::get('users','index')->name('users.index');
-    Route::get('users/crear', 'create')->name('users.create');
+    Route::get('users/create', 'create')->name('users.create');
     Route::post('users', 'store')->name('users.store');
     Route::delete('users/{user}','destroy')->name('users.destroy');
     Route::get('users/{user}', 'show')->name('users.show');
@@ -79,21 +83,41 @@ Route::controller(OrderController::class)->group(function () {
 });
 
 Route::controller(AddressController::class)->group(function () {
-    Route::get('addresses', 'index')->name('address.index');
-    Route::get('addresses/create', 'create')->name('address.create');
-    Route::post('addresses/store', 'store')->name('address.store');
-    Route::get('addresses/{address}', 'show')->name('address.show');
-    Route::get('addresses/{address}/edit', 'edit')->name('address.edit');
-    Route::put('addresses/{address}', 'update')->name('address.update');
-    Route::delete('addresses/{address}', 'destroy')->name('address.destroy');
+    Route::get('addresses', 'index')->name('addresses.index');
+    Route::get('addresses/create', 'create')->name('addresses.create');
+    Route::post('addresses/store', 'store')->name('addresses.store');
+    Route::get('addresses/{address}', 'show')->name('addresses.show');
+    Route::get('addresses/{address}/edit', 'edit')->name('addresses.edit');
+    Route::put('addresses/{address}', 'update')->name('addresses.update');
+    Route::delete('addresses/{address}', 'destroy')->name('addresses.destroy');
 });
 
 Route::controller(PaymentController::class)->group(function () {
-    Route::get('payments', 'index')->name('payment.index');
-    Route::get('payments/create', 'create')->name('payment.create');
-    Route::post('payments/store', 'store')->name('payment.store');
-    Route::get('payments/{payment}', 'show')->name('payment.show');
-    Route::get('payments/{payment}/edit', 'edit')->name('payment.edit');
-    Route::put('payments/{payment}', 'update')->name('payment.update');
-    Route::delete('payments/{payment}', 'destroy')->name('payment.destroy');
+    Route::get('payments', 'index')->name('payments.index');
+    Route::get('payments/create', 'create')->name('payments.create');
+    Route::post('payments/store', 'store')->name('payments.store');
+    Route::get('payments/{payment}', 'show')->name('payments.show');
+    Route::get('payments/{payment}/edit', 'edit')->name('payments.edit');
+    Route::put('payments/{payment}', 'update')->name('payments.update');
+    Route::delete('payments/{payment}', 'destroy')->name('payments.destroy');
+});
+
+Route::controller(DiscountController::class)->group(function () {
+    Route::get('discounts', 'index')->name('discounts.index');
+    Route::get('discounts/create', 'create')->name('discounts.create');
+    Route::post('discounts/store', 'store')->name('discounts.store');
+    Route::get('discounts/{discount}', 'show')->name('discounts.show');
+    Route::get('discounts/{discount}/edit', 'edit')->name('discounts.edit');
+    Route::put('discounts/{discount}', 'update')->name('discounts.update');
+    Route::delete('discounts/{discount}', 'destroy')->name('discounts.destroy');
+});
+
+Route::controller(CartController::class)->group(function () {
+    Route::get('carts', 'index')->name('carts.index');
+    Route::get('carts/create', 'create')->name('carts.create');
+    Route::post('carts/store', 'store')->name('carts.store');
+    Route::get('carts/{cart}', 'show')->name('carts.show');
+    Route::get('carts/{cart}/edit', 'edit')->name('carts.edit');
+    Route::put('carts/{cart}', 'update')->name('carts.update');
+    Route::delete('carts/{cart}', 'destroy')->name('carts.destroy');
 });
