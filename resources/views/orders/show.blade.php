@@ -1,23 +1,23 @@
 @extends('layouts.app')
-@section('title','Pedido')
-@section('content')
-
-<!-- Start Item Details -->
-<section class="item-details section">
-    <div class="container">
-        <div class="top-area">
-            <div class="row align-items-center">
-                <div class="col-lg-6 col-md-12 col-12">
-                    <div class="product-info">
-                        <h2 class="title">{{$order->state}}</h2>
-                        <p class="info-text">Cliente: {{$order->user->name}}</p>
-                        <p class="info-text">Precio: {{$order->precioTotal}}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Item Details -->
-
+@section('title', 'Order')
+@section('single')
+    Order {{ $order->id }}
+@endsection
+@section('show')
+    <p class="info-text">State: {{$order->state}}</p>
+    <p class="">Customer: {{$order->user->name}}</p>
+    <p class="">Address: {{$order->address}}</p>
+    <p class="info-text">Payment: {{$order->payment}}</p>
+    @foreach($order->orderLines as $orderLine)
+    <p class="">Piece: {{$orderLine->pieceName}}</p>
+    <p class="">Number: {{$orderLine->number}}</p>
+    <p class="info-text">Amount: {{$orderLine->totalPrice}}</p>
+    @endforeach
+    <p class="info-text">Total amount: {{$order->totalPrice}}</p>
+@endsection
+@section('edit')
+    {{ route('orders.edit', $order) }}
+@endsection
+@section('delete')
+    {{ route('orders.destroy', $order) }}
 @endsection

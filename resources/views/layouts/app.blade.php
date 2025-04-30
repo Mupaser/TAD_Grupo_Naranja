@@ -66,6 +66,8 @@
                         <div class="top-middle">
                             <ul class="useful-links">
                                 <li><a href="{{ route('users.index') }}">Users</a></li>
+                                <li><a href="{{ route('favoritesLists.index') }}">Favorites Lists</a></li>
+                                <li><a href="{{ route('rols.index') }}">Rols</a></li>
                                 <li><a href="{{ route('orders.index') }}">Orders</a></li>
                                 <li><a href="{{ route('pieces.index') }}">Pieces</a></li>
                                 <li><a href="{{ route('addresses.index') }}">Addresses</a></li>
@@ -127,7 +129,7 @@
                                             <h3>@yield('single')<h3>
                                             @hasSection('update')
                                                 <form class="form-group" action="@yield('update')" method="POST">
-                                                    @method('UPDATE')
+                                                    @method('PUT')
                                                     @csrf
                                                     @yield('inputs')
                                                     <div class="button">
@@ -151,14 +153,18 @@
                                             @hasSection('show')
                                                 @yield('show')
                                                 <div class="row">
+                                                    @hasSection('edit')
                                                     <div class="button col">
                                                         <a href="@yield('edit')" class="btn bg-primary w-100">Edit</a>
                                                     </div>
+                                                    @endif
+                                                    @hasSection('delete')
                                                     <form class="col" action="@yield('delete')" method="post">
                                                         @method('DELETE')
                                                         @csrf
                                                         <div class="button"><button type="submit" class="btn bg-primary w-100">Delete</button></div>
                                                     </form>
+                                                    @endif
                                                 </div>
                                             @endif
                                         </div>
