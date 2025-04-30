@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Payment;
+use App\Models\Discount;
 
-class PaymentController extends Controller
+class DiscountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payments = Payment::paginate(10);
-        return view('payments.index', compact('payments'));
+        $discounts = Discount::paginate(10);
+        return view('discounts.index', compact('discounts'));
     }
 
     /**
@@ -25,7 +25,7 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        return view('payments.create');
+        return view('discounts.create');
     }
 
     /**
@@ -36,11 +36,14 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        $payment = new Payment();
-        $payment->name = $request->name;
-
-        $payment->save();
-        return redirect()->route('payments.show',$payment);
+        $discount = new Discount();
+        $discount->name = $request->name;
+        $discount->code = $request->code;
+        $discount->percentage = $request->percentage;
+        $discount->valid = $request->valid;
+        
+        $discount->save();
+        return redirect()->route('discounts.show', $discount);
     }
 
     /**
@@ -49,9 +52,9 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Payment $payment)
+    public function show(Discount $discount)
     {
-        return view('payments.show', compact('payment'));
+        return view('discounts.show', compact('discount'));
     }
 
     /**
@@ -60,9 +63,9 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Payment $payment)
+    public function edit(Discount $discount)
     {
-        return view('payments.edit', compact('payment'));
+        return view('discounts.edit', compact('discount'));
     }
 
     /**
@@ -72,12 +75,15 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Payment $payment)
+    public function update(Request $request, Discount $discount)
     {
-        $payment->name = $request->name;
-
-        $payment->save();
-        return redirect()->route('payments.show', $payment);
+        $discount->name = $request->name;
+        $discount->code = $request->code;
+        $discount->percentage = $request->percentage;
+        $discount->valid = $request->valid;
+        
+        $discount->save();
+        return redirect()->route('discounts.show', $discount);
     }
 
     /**
@@ -86,9 +92,9 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Payment $payment)
+    public function destroy(Discount $discount)
     {
-        $payment->delete();
-        return redirect()->route('payments.index');
+        $discount->delete();
+        return redirect()->route('discounts.index');
     }
 }

@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Edit Address {{ $address->id }}</h1>
-    <form action="{{ route('address.update') }}" method="POST">
+    <form action="{{ route('addresses.update') }}" method="POST">
         @method('PUT')    
         @csrf
         <label for="country">Country:</label>
@@ -23,7 +23,7 @@
         <input type="text" name="zipCode" value="{{ $address->zipCode }}" required><br>
 
         <button type="submit">Edit address</button>
-        <button><a href="{{ route('address.index') }}">Back</a></button>
+        <button><a href="{{ route('addresses.index') }}">Back</a></button>
     </form>
 </body>
 </html>

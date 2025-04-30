@@ -7,7 +7,7 @@
 </head>
 <body>
     <h1>Edit Address</h1>
-    <form action="{{ route('address.store') }}" method="POST">
+    <form action="{{ route('addresses.store') }}" method="POST">
         @method('POST')
         @csrf
         <label for="country">Country:</label>
@@ -23,7 +23,7 @@
         <input type="text" name="zipCode" id="zipCode" required><br>
 
         <button type="submit">Create address</button>
-        <button><a href="{{ route('address.index') }}">Back</a></button>
+        <button><a href="{{ route('addresses.index') }}">Back</a></button>
     </form>
 </body>
 </html>

@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Payment;
+use App\Models\Cart;
 
-class PaymentController extends Controller
+class CartController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,8 @@ class PaymentController extends Controller
      */
     public function index()
     {
-        $payments = Payment::paginate(10);
-        return view('payments.index', compact('payments'));
+        $carts = Cart::paginate(10);
+        return view('carts.index', compact('carts'));
     }
 
     /**
@@ -25,7 +25,7 @@ class PaymentController extends Controller
      */
     public function create()
     {
-        return view('payments.create');
+        return view('carts.create');
     }
 
     /**
@@ -36,11 +36,11 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        $payment = new Payment();
-        $payment->name = $request->name;
-
-        $payment->save();
-        return redirect()->route('payments.show',$payment);
+        $cart = new Cart();
+        $cart->user_id = $request->user_id;
+        
+        $cart->save();
+        return redirect()->route('carts.show', $cart);
     }
 
     /**
@@ -49,9 +49,9 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Payment $payment)
+    public function show(Cart $cart)
     {
-        return view('payments.show', compact('payment'));
+        return view('carts.show', compact('cart'));
     }
 
     /**
@@ -60,9 +60,9 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Payment $payment)
+    public function edit(Cart $cart)
     {
-        return view('payments.edit', compact('payment'));
+        return view('carts.edit', compact('cart'));
     }
 
     /**
@@ -72,12 +72,12 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Payment $payment)
+    public function update(Request $request, Cart $cart)
     {
-        $payment->name = $request->name;
-
-        $payment->save();
-        return redirect()->route('payments.show', $payment);
+        $cart->user_id = $request->user_id;
+        
+        $cart->save();
+        return redirect()->route('carts.show', $cart);
     }
 
     /**
@@ -86,9 +86,9 @@ class PaymentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Payment $payment)
+    public function destroy(Cart $cart)
     {
-        $payment->delete();
-        return redirect()->route('payments.index');
+        $cart->delete();
+        return redirect()->route('carts.index');
     }
 }
