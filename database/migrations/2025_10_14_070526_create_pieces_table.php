@@ -18,7 +18,7 @@ return new class extends Migration
             $table->timestamps();
             $table->string("name");
             $table->double("price");
-            $table->enum("estate",["Available","Not available"]);
+            $table->enum("state",["Available","Not available"]);
             $table->double("offer");
             $table->text("description");
             $table->string("image");

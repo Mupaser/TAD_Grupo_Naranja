@@ -1,27 +1,24 @@
 @extends('layouts.app')
-@section('title','Orders')
+@section('title','Favorites Lists')
 @section('index')
-@foreach($orders as $order)
+@foreach($favoritesLists as $favoritesList)
 <div class="col-lg-3 col-md-6 col-12">
     <!-- Start Single Product -->
     <div class="single-product">
-        <form action="{{route('orders.destroy',$order)}}" method="post">
+        <form action="{{route('favoritesLists.destroy',$favoritesList)}}" method="post">
             @method('DELETE')
             @csrf
             <button type="submit" class="btn-close btn-close-white bg-primary" aria-label="Close"></button>
         </form>
         <div class="product-info">
-            <h3 class="title">Order {{$order->id}}</h3>
-            <p class="lastName">{{$order->state}}</a></p>
+            <div class="info-body">
+                <h3 class="title">{{$favoritesList->user->name}}'s favorites list</h3>
+            </div>
             <div class="row">
                 <div class="button col">
-                    <a href="{{ route('orders.show', $order) }}" class="btn bg-primary w-100">Show</a>
-                </div>
-                <div class="button col">
-                    <a href="{{ route('orders.edit', $order) }}" class="btn bg-primary w-100">Edit</a>
+                    <a href="{{ route('favoritesLists.show', $favoritesList) }}" class="btn bg-primary w-100">Show</a>
                 </div>
             </div>
-            
         </div>
     </div>
     <!-- End Single Product -->
@@ -29,5 +26,5 @@
 @endforeach
 @endsection
 @section('paginate')
-{{ $orders->links() }}
+{{ $favoritesLists->links() }}
 @endsection
