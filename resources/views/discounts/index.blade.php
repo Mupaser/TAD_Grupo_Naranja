@@ -1,25 +1,28 @@
 @extends('layouts.app')
-@section('title', 'Payments')
+@section('title', 'Discounts')
 @section('index')
-@foreach($payments as $payment)
+@foreach($discounts as $discount)
 <div class="col-lg-3 col-md-6 col-12">
     <!-- Start Single Product -->
     <div class="single-product">
-        <form action="{{route('payments.destroy',$payment)}}" method="post">
+        <form action="{{route('discounts.destroy',$discount)}}" method="post">
             @method('DELETE')
             @csrf
             <button type="submit" class="btn-close btn-close-white bg-primary" aria-label="Close"></button>
         </form>
         <div class="product-info">
             <div class="info-body">
-                <h3 class="title">{{$payment->name}}</h3>
+                <h3 class="title">{{$discount->name}}</h3>
+                <p class="info-text">{{$discount->code}}</p>
+                <p class="info-text">{{$discount->percentage}}</p>
+                <p class="info-text">{{$discount->valid}}</p>
             </div>
             <div class="row">
                 <div class="button col">
-                    <a href="{{ route('payments.show', $payment) }}" class="btn bg-primary w-100">Show</a>
+                    <a href="{{ route('discounts.show', $discount) }}" class="btn bg-primary w-100">Show</a>
                 </div>
                 <div class="button col">
-                    <a href="{{ route('payments.edit', $payment) }}" class="btn bg-primary w-100">Edit</a>
+                    <a href="{{ route('discounts.edit', $discount) }}" class="btn bg-primary w-100">Edit</a>
                 </div>
             </div>
         </div>
@@ -29,8 +32,8 @@
 @endforeach
 @endsection
 @section('create')
-    {{route('payments.create')}}
+    {{route('discounts.create')}}
 @endsection
 @section('paginate')
-    {{ $payments->links() }}
+    {{ $discounts->links() }}
 @endsection
