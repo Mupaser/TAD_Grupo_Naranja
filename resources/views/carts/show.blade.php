@@ -1,5 +1,5 @@
 @extends('layouts.app')
-@section('title', 'Payment')
+@section('title', 'Cart')
 @section('content')
 
 <!-- Start Item Details -->
@@ -9,8 +9,8 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 col-md-12 col-12">
                     <div class="product-info">
-                        <h2 class="title">{{ $payment->name }}</h2>
-                        <p class="info-text">ID: {{ $payment->id }}</p>
+                        <h2 class="title">Cart</h2>
+                        <p class="info-text">User ID: {{ $cart->user_id }}</p>
                     </div>
                 </div>
             </div>
@@ -18,18 +18,20 @@
     </div>
 </section>
 <!-- End Item Details -->
-
 @endsection
-@section('title', 'Payment')
+@section('title', 'Cart')
 @section('single')
-    {{ $payment->name }}
+    {{ $cart->user_id }}
 @endsection
 @section('show')
-    <p class="info-text">ID: {{ $payment->id }}</p>
+    <p class="info-text">User ID: {{ $cart->user_id }}</p>
 @endsection
 @section('edit')
-    {{ route('payments.edit', $payment) }}
+    {{ route('carts.edit', $cart) }}
 @endsection
 @section('delete')
-    {{ route('payments.destroy', $payment) }}
+    {{ route('carts.destroy', $cart) }}
+@endsection
+@section('index')
+    {{ route('carts.index') }}
 @endsection

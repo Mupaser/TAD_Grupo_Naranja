@@ -1,22 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>Address {{  $address->id    }}</h1>
-    <p>Country: {{ $address->country }}</p>
-    <p>City: {{ $address->city }}</p>
-    <p>Street: {{ $address->street }}</p>
-    <p>Zip Code: {{ $address->zipCode }}</p>
+@extends('layouts.app')
+@section('title', 'Address')
+@section('content')
 
-    <button><a href="{{ route('addresses.edit') }}">Edit</a></button>
-    <button><a href="{{ route('addresses.index') }}">Back</a></button>
-    <form action="{{ route('addresses.destroy', $address->id) }}" method="POST" style="display:inline;">
-        @csrf
-        @method('DELETE')
-        <button type="submit">Delete</button>
-</body>
-</html>
+<section class="item-details section">
+    <div class="container">
+        <div class="top-area">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-md-12 col-12">
+                    <div class="product-info">
+                        <h2 class="title">{{ $address->country }}</h2>
+                        <p class="info-text">City: {{ $address->city }}</p>
+                        <p class="info-text">Street: {{ $address->street }}</p>
+                        <p class="info-text">Zip Code: {{ $address->zipCode }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@endsection
+@section('title', 'Address')
+@section('single')
+    {{ $address->country }}
+@endsection
+@section('show')
+    <p class="info-text">{{ $address->city }}</p>
+    <p class="info-text">Street: {{ $address->street }}</p>
+    <p class="info-text">Zip Code: {{ $address->zipCode }}</p>
+@endsection
+@section('edit')
+    {{ route('addresses.edit', $address) }}
+@endsection
+@section('delete')
+    {{ route('addresses.destroy', $address) }}
+@endsection
+@section('index')
+    <div class="col-lg-3 col-md-6 col-12 mt-4">
+        <button><a href="{{ route('addresses.index') }}">Back</a></button>
+    </div>

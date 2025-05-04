@@ -1,18 +1,28 @@
 @extends('layouts.app')
 @section('title', 'Addresses')
-@section('content')
+@section('index')
     @foreach ($addresses as $address)
         <div class="col-lg-3 col-md-6 col-12">
             <div class="single-product">
-                <div class="product-content">
-                    <h3><a href="{{ route('addresses.show', $address->id) }}">{{ $address->country }}</a></h3>
-                    <p>Address ID: {{ $address->id }}</p>
-                    <button><a href="{{ route('addresses.edit', $address->id) }}">Edit</a></button>
-                    <form action="{{ route('addresses.destroy', $address->id) }}" method="POST" style="display:inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit">Delete</button>
-                    </form>
+                <form action="{{ route('addresses.destroy', $address) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn-close btn-close-white bg-primary" aria-label="Close"></button>
+                </form>
+            <div class="product-info">
+                <div class="info-body">
+                    <h3 class="title">{{ $address->country }}</h3>
+                    <p class="info-text">{{ $address->city }}</p>
+                    <p class="info-text">{{ $address->street }}</p>
+                    <p class="info-text">{{ $address->zipCode }}</p>
+                </div>
+                <div class="row">
+                    <div class="button col">
+                        <a href="{{ route('addresses.show', $address) }}" class="btn bg-primary w-100">Show</a>
+                    </div>
+                    <div class="button col">
+                        <a href="{{ route('addresses.edit', $address) }}" class="btn bg-primary w-100">Edit</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -20,4 +30,7 @@
     <div class="col-lg-3 col-md-6 col-12 mt-4">
         <button><a href="{{ route('addresses.create') }}">Create Address</a></button>
     </div>
+@endsection
+@section('create')
+    {{ route('addresses.create') }}
 @endsection
