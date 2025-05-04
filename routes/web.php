@@ -31,7 +31,7 @@ Route::get('/', function () {
 });
 
 Route::get('/home', function () {
-    return view('auth.dashboard');
+    return view('home');
 })->middleware(['auth','verified']);
 
 Route::controller(UserController::class)->group(function () {
