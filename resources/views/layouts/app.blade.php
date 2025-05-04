@@ -50,7 +50,7 @@
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-middle top-left">
                             <ul class="menu-top-link useful-links">
-                                <li><a class="" href="/">Inicio</a></li>
+                                <li><a class="" href="/">Home</a></li>
                                 <li>
                                     <div class="select-position">
                                         <select id="select5">
@@ -64,26 +64,52 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-middle">
+                            @auth
                             <ul class="useful-links">
+                                @if(Auth::user()->rol->name == "Admin")
+                                <li><a href="{{ route('pieces.index') }}">Pieces</a></li>
                                 <li><a href="{{ route('users.index') }}">Users</a></li>
                                 <li><a href="{{ route('favoritesLists.index') }}">Favorites Lists</a></li>
                                 <li><a href="{{ route('rols.index') }}">Rols</a></li>
                                 <li><a href="{{ route('orders.index') }}">Orders</a></li>
-                                <li><a href="{{ route('pieces.index') }}">Pieces</a></li>
                                 <li><a href="{{ route('addresses.index') }}">Addresses</a></li>
                                 <li><a href="{{ route('payments.index') }}">Payments</a></li>
+                                @else
+                                <li><a href="{{ route('pieces.index') }}">Pieces</a></li>
+                                <li><a href="{{ route('orders.index') }}">Orders</a></li>
+                                @endif
                             </ul>
+                            @endauth
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-end">
                             <ul class="user-login">
-                                <li>
-                                    <a href="login.html">Sign In</a>
-                                </li>
-                                <li>
-                                    <a href="register.html">Register</a>
-                                </li>
+                                @if (Route::has('login'))
+                                    
+                                        @auth
+                                            <div class="dropdown">
+                                                <button class="btn btn-primary text-white dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    {{ Auth::user()->name }}
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                    <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a></li>
+                                                </ul>
+                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                    @csrf
+                                                </form>
+                                            </div>
+                                        @else
+                                            <li>
+                                            <a href="{{ route('login') }}">Log in</a>
+                                            </li>
+                                            @if (Route::has('register'))
+                                                <li>
+                                                <a href="{{ route('register') }}">Register</a>
+                                                <li>
+                                            @endif
+                                        @endauth
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -106,19 +132,20 @@
             <div class="row">
                 @hasSection('index')
                     @yield('index')
-                    @hasSection ('create')
-                    <div class="col-lg-3 col-md-6 col-12 ">
-                        <!-- Start Single Product -->
-                        <div class="single-product">
-                            <div class="button">
-                                <a href="@yield('create')" class="btn bg-primary w-100">Create +</a>
+                    <div>@yield('paginate')</div>
+                @endif
+                @hasSection('create')
+                        <div class="col-lg-3 col-md-6 col-12 ">
+                            <!-- Start Single Product -->
+                            <div class="single-product">
+                                <div class="button">
+                                    <a href="@yield('create')" class="btn bg-primary w-100">Create +</a>
+                                </div>
                             </div>
+                            <!-- End Single Product -->
                         </div>
-                        <!-- End Single Product -->
-                    </div>
                     @endif
-                    <div>@yield('paginate')</div> 
-                @elseif('single')
+                @hasSection('single')
                     <!-- Start Item Details -->
                     <section class="item-details section">
                         <div class="container">
@@ -127,46 +154,52 @@
                                     <div class="col-lg-6 col-md-12 col-12">
                                         <div class="product-info">
                                             <h3>@yield('single')<h3>
-                                            @hasSection('update')
-                                                <form class="form-group" action="@yield('update')" method="POST">
-                                                    @method('PUT')
-                                                    @csrf
-                                                    @yield('inputs')
-                                                    <div class="button">
-                                                        <button class="btn btn-primary w-100" type="submit">
-                                                            Edit
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            @endif
-                                            @hasSection('store')
-                                                <form class="form-group" action="@yield('store')" method="POST">
-                                                    @csrf
-                                                    @yield('inputs')
-                                                    <div class="button">
-                                                        <button class="btn btn-primary w-100" type="submit">
-                                                            Create
-                                                        </button>
-                                                    </div>
-                                                </form>
-                                            @endif
-                                            @hasSection('show')
-                                                @yield('show')
-                                                <div class="row">
-                                                    @hasSection('edit')
-                                                    <div class="button col">
-                                                        <a href="@yield('edit')" class="btn bg-primary w-100">Edit</a>
-                                                    </div>
+                                                    @hasSection('update')
+                                                        <form class="form-group" action="@yield('update')"
+                                                            method="POST">
+                                                            @method('PUT')
+                                                            @csrf
+                                                            @yield('inputs')
+                                                            <div class="button">
+                                                                <button class="btn btn-primary w-100" type="submit">
+                                                                    Edit
+                                                                </button>
+                                                            </div>
+                                                        </form>
                                                     @endif
-                                                    @hasSection('delete')
-                                                    <form class="col" action="@yield('delete')" method="post">
-                                                        @method('DELETE')
-                                                        @csrf
-                                                        <div class="button"><button type="submit" class="btn bg-primary w-100">Delete</button></div>
-                                                    </form>
+                                                    @hasSection('store')
+                                                        <form class="form-group" action="@yield('store')"
+                                                            method="POST">
+                                                            @csrf
+                                                            @yield('inputs')
+                                                            <div class="button">
+                                                                <button class="btn btn-primary w-100" type="submit">
+                                                                    Create
+                                                                </button>
+                                                            </div>
+                                                        </form>
                                                     @endif
-                                                </div>
-                                            @endif
+                                                    @hasSection('show')
+                                                        @yield('show')
+                                                        <div class="row">
+                                                            @hasSection('edit')
+                                                                <div class="button col">
+                                                                    <a href="@yield('edit')"
+                                                                        class="btn bg-primary w-100">Edit</a>
+                                                                </div>
+                                                            @endif
+                                                            @hasSection('delete')
+                                                                <form class="col" action="@yield('delete')"
+                                                                    method="post">
+                                                                    @method('DELETE')
+                                                                    @csrf
+                                                                    <div class="button"><button type="submit"
+                                                                            class="btn bg-primary w-100">Delete</button>
+                                                                    </div>
+                                                                </form>
+                                                            @endif
+                                                        </div>
+                                                    @endif
                                         </div>
                                     </div>
                                 </div>
@@ -175,9 +208,6 @@
                     </section>
                     <!-- End Item Details -->
                 @endif
-
-
-                
             </div>
         </div>
         </div>

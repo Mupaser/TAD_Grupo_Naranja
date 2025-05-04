@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('lastName');
-            $table->string('emailAddress')->unique();
+            $table->string('lastName')->nullable();
+            $table->string('email')->unique();
             $table->string('password');
-            $table->integer('phone');
+            $table->integer('phone')->nullable();
             $table->foreignId('rol_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('payment_id')->nullable()->constrained()->onDelete('set null');
             $table->timestamp('email_verified_at')->nullable();
