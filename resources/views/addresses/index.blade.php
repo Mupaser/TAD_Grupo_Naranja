@@ -27,10 +27,10 @@
             </div>
         </div>
     @endforeach
-    <div class="col-lg-3 col-md-6 col-12 mt-4">
-        <button><a href="{{ route('addresses.create') }}">Create Address</a></button>
-    </div>
 @endsection
 @section('create')
     {{ route('addresses.create') }}
+@endsection
+@section('paginate')
+{{ $addresses->links() }}
 @endsection

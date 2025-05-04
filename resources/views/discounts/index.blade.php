@@ -30,9 +30,6 @@
     <!-- End Single Product -->
 </div>
 @endforeach
-<div class="col-lg-3 col-md-6 col-12 mt-4">
-    <button><a href="{{ route('discounts.create') }}">Create Discount</a></button>
-</div>
 @endsection
 @section('create')
     {{route('discounts.create')}}

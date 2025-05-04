@@ -27,9 +27,6 @@
     <!-- End Single Product -->
 </div>
 @endforeach
-<div class="col-lg-3 col-md-6 col-12 mt-4">
-    <button><a href="{{ route('carts.create') }}">Create Cart</a></button>
-</div>
 @endsection
 @section('create')
     {{route('carts.create')}}

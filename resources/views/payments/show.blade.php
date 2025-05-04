@@ -1,26 +1,5 @@
 @extends('layouts.app')
 @section('title', 'Payment')
-@section('content')
-
-<!-- Start Item Details -->
-<section class="item-details section">
-    <div class="container">
-        <div class="top-area">
-            <div class="row align-items-center">
-                <div class="col-lg-6 col-md-12 col-12">
-                    <div class="product-info">
-                        <h2 class="title">{{ $payment->name }}</h2>
-                        <p class="info-text">ID: {{ $payment->id }}</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Item Details -->
-
-@endsection
-@section('title', 'Payment')
 @section('single')
     {{ $payment->name }}
 @endsection
