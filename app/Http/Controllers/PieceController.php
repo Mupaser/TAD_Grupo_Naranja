@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Piece;
+use App\Models\Cart;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class PieceController extends Controller
@@ -16,7 +18,8 @@ class PieceController extends Controller
     public function index()
     {
         $pieces = Piece::paginate(10);
-        return view('', compact('pieces'));
+        $cart = Cart::firstOrCreate(['user_id' => Auth::id()]);
+        return view('pieces.index', compact('pieces', 'cart'));
     }
 
     /**
@@ -26,7 +29,7 @@ class PieceController extends Controller
      */
     public function create()
     {
-        return view();
+        return view('pieces.create');
     }
 
     /**
@@ -40,12 +43,12 @@ class PieceController extends Controller
         $piece = new Piece();
         $piece->name = $request->name;
         $piece->price = $request->price;
-        $piece->estate = $request->estate;
+        $piece->state = $request->state;
         $piece->offer = $request->offer;
         $piece->description = $request->description;
         $piece->image = $request->image;
         $piece->save();
-        return view('', compact('piece'));
+        return redirect()->route('pieces.show', $piece);
     }
 
     /**
@@ -56,7 +59,7 @@ class PieceController extends Controller
      */
     public function show(Piece $piece)
     {
-        return view('', compact('piece'));
+        return view('pieces.show', compact('piece'));
     }
 
     /**
@@ -67,7 +70,7 @@ class PieceController extends Controller
      */
     public function edit(Piece $piece)
     {
-        return view('', compact('piece'));
+        return view('pieces.edit', compact('piece'));
     }
 
     /**
@@ -81,12 +84,12 @@ class PieceController extends Controller
     {
         $piece->name = $request->name;
         $piece->price = $request->price;
-        $piece->estate = $request->estate;
+        $piece->state = $request->state;
         $piece->offer = $request->offer;
         $piece->description = $request->description;
         $piece->image = $request->image;
         $piece->save();
-        return view('', compact('piece'));
+        return redirect()->route('pieces.show', $piece);
     }
 
     /**
@@ -98,6 +101,6 @@ class PieceController extends Controller
     public function destroy(Piece $piece)
     {
         $piece->delete();
-        return view();
+        return redirect()->route('pieces.index');
     }
 }

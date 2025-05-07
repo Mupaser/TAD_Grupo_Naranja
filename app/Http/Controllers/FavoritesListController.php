@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\FavoritesList;
+use App\Models\Piece;
 use Illuminate\Http\Request;
 
 class FavoritesListController extends Controller
@@ -88,5 +89,32 @@ class FavoritesListController extends Controller
     {
         $favoritesList->delete();
         return redirect()->route('favoritesLists.index');
+    }
+
+    public function addPieceToFavoritesList(FavoritesList $favoritesList, Piece $piece)
+    {     
+        if (!$favoritesList->pieces->contains($piece->id)) {
+            $favoritesList->pieces()->attach($piece->id);
+        }
+
+        return redirect()->route('pieces.index');
+    }
+    
+    public function removePieceFromFavoritesList(FavoritesList $favoritesList, Piece $piece)
+    {
+        if ($favoritesList->pieces->contains($piece->id)) {
+            $favoritesList->pieces()->detach($piece->id);
+        }
+
+        return redirect()->route('pieces.index');
+    }
+
+    public static function countPiecesInFavoritesList($user_id)
+    {
+        $favoritesList = FavoritesList::where('user_id', $user_id)->first();
+        if ($favoritesList) {
+            return $favoritesList->pieces->count();
+        }
+        return 0;
     }
 }

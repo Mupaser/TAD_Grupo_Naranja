@@ -9,6 +9,10 @@ class Cart extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+    ];
+    
     public function cartLines(){
         return $this->hasMany("App\Models\CartLine");
     }
