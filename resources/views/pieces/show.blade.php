@@ -1,13 +1,15 @@
 @extends('layouts.app')
-
-@section('titulo','Piezas')
-
-@section('content')
-    <h1>Nombre {{ $piece->name }}</h1>
-    <p>Precio: {{ $piece->price }}</p>
-    <p>Estado: {{ $piece->estate }}</p>
-    <p>Oferta: {{ $piece->offer }}</p>
-    <p>Descripción: {{ $piece->description }}</p>
-    <p>Imagen: {{ $piece->image }}</p>
-    <button><a href="{{ route('pieces.edit', $piece) }}">Editar</a></button>
-@endsection()
+@section('title', 'Piece')
+@section('single')
+    {{ $piece->name }}
+@endsection
+@section('show')
+    @if ($piece->offer > 0)
+        <p class="price">Price: {{ $piece->price - ($piece->price * $piece->offer) }}<span> {{ $piece->price }}</span></p>
+    @else
+        <p class="price">Price: {{ $piece->price }}</p>
+    @endif
+    <p class="info-text">State: {{ $piece->state }}</p>
+    <p class="info-text">Description: {{ $piece->description }}</p>
+    <img src="{{ Vite::asset($piece->image) }}" alt="resources/images/123456.jpg" class="img-fluid">
+@endsection

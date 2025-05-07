@@ -16,10 +16,11 @@ return new class extends Migration
         Schema::create('cart_lines', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->integer("number");
-            $table->double("totalPrice");
+            $table->integer("number")->default(0);
+            $table->double("totalPrice")->default(0);
             $table->foreignId('cart_id')->constrained()->onDelete("cascade");
             $table->foreignId('piece_id')->nullable()->constrained()->onDelete("set null");
+            $table->unique(['cart_id', 'piece_id']);
         });
     }
 

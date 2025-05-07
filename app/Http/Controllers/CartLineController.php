@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CartLine;
+use App\Models\Cart;
 use Illuminate\Http\Request;
 
 class CartLineController extends Controller
@@ -25,7 +26,7 @@ class CartLineController extends Controller
      */
     public function create()
     {
-        return view('cartLines.create');
+        return new CartLine();
     }
 
     /**
@@ -34,15 +35,27 @@ class CartLineController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Cart $cart)
     {
-        $cartLine = new CartLine();
-        $cartLine->piece_id = $request->piece_id;
-        $cartLine->number = $request->number;
-        $cartLine->cart_id = $request->cart_id;
-        $cartLine->totalPrice = $cartLine->piece->price * $cartLine->number;
-        $cartLine->save();
-        return redirect()->route('cartLines.show',$cartLine);
+        $cartLine = CartLine::where('cart_id', $request->cart_id)->where('piece_id', $request->piece_id)->first();
+
+        if ($cartLine) {
+            $cartLine->number += $request->number;
+            $cartLine->totalPrice += $cartLine->piece->price * $request->number;
+
+            $cartLine->save();
+        } else {
+            $cartLine = new CartLine();
+            $cartLine->piece_id = $request->piece_id;
+            $cartLine->number = $request->number;
+            $cartLine->cart_id = $request->cart_id;
+            $cartLine->totalPrice = $cartLine->piece->price * $cartLine->number;
+
+            $cartLine->save();
+            $cart->cartLines()->save($cartLine);
+        }
+        
+        return redirect()->back();
     }
 
     /**
@@ -51,9 +64,10 @@ class CartLineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(CartLine $cartLine)
+    public function show($cart_id)
     {
-        return view('cartLines.show', compact('cartLine'));
+        $cartLines = CartLine::where('cart_id', $cart_id)->get();
+        return view('cartLines.show', compact('cartLines'));
     }
 
     /**
@@ -76,12 +90,10 @@ class CartLineController extends Controller
      */
     public function update(Request $request, CartLine $cartLine)
     {
-        $cartLine->piece_id = $request->piece_id;
         $cartLine->number = $request->number;
-        $cartLine->cart_id = $request->cart_id;
         $cartLine->totalPrice = $cartLine->piece->price * $cartLine->number;
         $cartLine->save();
-        return redirect()->route('cartLines.show',$cartLine);
+        return redirect()->route('carts.show', $cartLine->cart);
     }
 
     /**
@@ -90,9 +102,29 @@ class CartLineController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(CartLine $cartLine)
+    public function destroy(CartLine $cartLine, Cart $cart)
     {
         $cartLine->delete();
-        return redirect()->route('cartLines.index');
+        return redirect()->route('carts.show', $cart);
+    }
+
+    public static function countPiecesInCart($user_id)
+    {
+        $cart = Cart::where('user_id', $user_id)->first();
+        $cartLine = CartLine::where('cart_id', $cart->id)->get();
+        if ($cartLine) {
+            return $cartLine->count();
+        }
+        return 0;
+    }
+
+    public static function getCartIdByUser($user_id)
+    {
+        $cart = Cart::where('user_id', $user_id)->first();
+        if (!$cart) {
+            return redirect()->back();
+        }
+        
+        return $cart->id;
     }
 }

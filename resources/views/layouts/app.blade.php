@@ -14,6 +14,7 @@
     @vite(['resources/js/main.js', 'resources/css/main.css'])
     @vite(['resources/js/glightbox.min.js', 'resources/css/glightbox.min.css'])
     @vite(['resources/js/tiny-slider.js', 'resources/css/tiny-slider.css'])
+    <link rel="stylesheet" href="https://cdn.lineicons.com/3.0/lineicons.css">
     <!--<link rel="stylesheet" href="assets/css/LineIcons.3.0.css" />
     <link rel="stylesheet" href="assets/css/tiny-slider.css" />
     <link rel="stylesheet" href="assets/css/glightbox.min.css" />
@@ -84,7 +85,21 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-end">
-                            <ul class="user-login">
+                            @if(Auth::user())
+                                <a href="{{ route('favoritesLists.show', Auth::user()->id) }}" class="wishlist btn btn-outline-primary position-relative text-white">
+                                    <i class="lni lni-heart"></i>
+                                    <span class="total-items badge bg-dark text-white position-absolute top-0 start-100 translate-middle">
+                                    {{ Auth::user()->favoritesList->pieces->count() }}
+                                    </span>
+                                </a>
+                                <a href="{{ route('carts.show', Auth::user()->cart) }}" class="cart btn btn-outline-primary rounded-circle position-relative text-white m-2">
+                                    <i class="lni lni-cart"></i>
+                                    <span class="total-items badge bg-dark text-white position-absolute top-0 start-100 translate-middle">
+                                    {{ Auth::user()->cart->cartLines->count() }}
+                                    </span>
+                                </a>
+                            @endif
+                            <ul class="user-login m-2">
                                 @if (Route::has('login'))
                                     
                                         @auth
@@ -182,21 +197,23 @@
                                                     @hasSection('show')
                                                         @yield('show')
                                                         <div class="row">
-                                                            @hasSection('edit')
-                                                                <div class="button col">
-                                                                    <a href="@yield('edit')"
-                                                                        class="btn bg-primary w-100">Edit</a>
-                                                                </div>
-                                                            @endif
-                                                            @hasSection('delete')
-                                                                <form class="col" action="@yield('delete')"
-                                                                    method="post">
-                                                                    @method('DELETE')
-                                                                    @csrf
-                                                                    <div class="button"><button type="submit"
-                                                                            class="btn bg-primary w-100">Delete</button>
+                                                            @if (Auth::user()->rol->name == "Admin")
+                                                                @hasSection('edit')
+                                                                    <div class="button col">
+                                                                        <a href="@yield('edit')"
+                                                                            class="btn bg-primary w-100">Edit</a>
                                                                     </div>
-                                                                </form>
+                                                                @endif
+                                                                @hasSection('delete')
+                                                                    <form class="col" action="@yield('delete')"
+                                                                        method="post">
+                                                                        @method('DELETE')
+                                                                        @csrf
+                                                                        <div class="button"><button type="submit"
+                                                                                class="btn bg-primary w-100">Delete</button>
+                                                                        </div>
+                                                                    </form>
+                                                                @endif
                                                             @endif
                                                         </div>
                                                     @endif
