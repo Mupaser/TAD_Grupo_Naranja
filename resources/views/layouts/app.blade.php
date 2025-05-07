@@ -14,7 +14,6 @@
     @vite(['resources/js/main.js', 'resources/css/main.css'])
     @vite(['resources/js/glightbox.min.js', 'resources/css/glightbox.min.css'])
     @vite(['resources/js/tiny-slider.js', 'resources/css/tiny-slider.css'])
-    @vite(['resources/css/LineIcons.3.0.css'])
     <link rel="stylesheet" href="https://cdn.lineicons.com/3.0/lineicons.css">
     <!--<link rel="stylesheet" href="assets/css/LineIcons.3.0.css" />
     <link rel="stylesheet" href="assets/css/tiny-slider.css" />
@@ -90,13 +89,13 @@
                                 <a href="{{ route('favoritesLists.show', Auth::user()->id) }}" class="wishlist btn btn-outline-primary position-relative text-white">
                                     <i class="lni lni-heart"></i>
                                     <span class="total-items badge bg-dark text-white position-absolute top-0 start-100 translate-middle">
-                                    {{ App\Http\Controllers\FavoritesListController::countPiecesInFavoritesList(Auth::user()->id) }}
+                                    {{ Auth::user()->favoritesList->pieces->count() }}
                                     </span>
                                 </a>
-                                <a href="{{ route('cartLines.getCartIdByUser', ['cart_id' => App\Http\Controllers\CartLineController::getCartIdByUser(Auth::user()->id)]) }}" class="cart btn btn-outline-primary rounded-circle position-relative text-white m-2">
+                                <a href="{{ route('carts.show', Auth::user()->cart) }}" class="cart btn btn-outline-primary rounded-circle position-relative text-white m-2">
                                     <i class="lni lni-cart"></i>
                                     <span class="total-items badge bg-dark text-white position-absolute top-0 start-100 translate-middle">
-                                    {{ App\Http\Controllers\CartLineController::countPiecesInCart(Auth::user()->id) }}
+                                    {{ Auth::user()->cart->cartLines->count() }}
                                     </span>
                                 </a>
                             @endif
@@ -198,21 +197,23 @@
                                                     @hasSection('show')
                                                         @yield('show')
                                                         <div class="row">
-                                                            @hasSection('edit')
-                                                                <div class="button col">
-                                                                    <a href="@yield('edit')"
-                                                                        class="btn bg-primary w-100">Edit</a>
-                                                                </div>
-                                                            @endif
-                                                            @hasSection('delete')
-                                                                <form class="col" action="@yield('delete')"
-                                                                    method="post">
-                                                                    @method('DELETE')
-                                                                    @csrf
-                                                                    <div class="button"><button type="submit"
-                                                                            class="btn bg-primary w-100">Delete</button>
+                                                            @if (Auth::user()->rol->name == "Admin")
+                                                                @hasSection('edit')
+                                                                    <div class="button col">
+                                                                        <a href="@yield('edit')"
+                                                                            class="btn bg-primary w-100">Edit</a>
                                                                     </div>
-                                                                </form>
+                                                                @endif
+                                                                @hasSection('delete')
+                                                                    <form class="col" action="@yield('delete')"
+                                                                        method="post">
+                                                                        @method('DELETE')
+                                                                        @csrf
+                                                                        <div class="button"><button type="submit"
+                                                                                class="btn bg-primary w-100">Delete</button>
+                                                                        </div>
+                                                                    </form>
+                                                                @endif
                                                             @endif
                                                         </div>
                                                     @endif

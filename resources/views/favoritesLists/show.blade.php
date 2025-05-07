@@ -14,7 +14,7 @@
         <img src="{{ Vite::asset('resources/images/123456.jpg') }}" alt="{{ $piece->name }}" class="img-fluid w-50">
         <div class="row">
             <div class="button col">
-                <form action="{{ route('favoritesLists.removePieceFromFavoritesList', ['user_id' => $favoritesList->user_id, 'piece_id' => $piece->id]) }}" method="POST">
+                <form action="{{ route('favoritesLists.removePieceFromFavoritesList', [Auth::user()->favoritesList, $piece]) }}" method="POST">
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn bg-primary w-100" aria-label="Close">Delete from Favorites List</button>

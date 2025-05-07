@@ -14,7 +14,7 @@
                     @else
                         <div class="wishlist-icon position-absolute top-0 end-0">
                             @if($piece->favoritesLists->contains('user_id', Auth::user()->id))
-                                <form action="{{ route('favoritesLists.removePieceFromFavoritesList', ['user_id' => Auth::user()->id, 'piece_id' => $piece->id]) }}" method="POST" class="wishlist-icon">
+                                <form action="{{ route('favoritesLists.removePieceFromFavoritesList', [Auth::user()->favoritesList, $piece]) }}" method="POST" class="wishlist-icon">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="piece_id" value="{{ $piece->id }}">
@@ -22,7 +22,7 @@
                                     <button class="lni lni-heart-filled btn btn-primary"></button>
                                 </form>
                             @else
-                                <form action="{{ route('favoritesLists.addPieceToFavoritesList', ['user_id' => Auth::user()->id, 'piece_id' => $piece->id]) }}" method="POST" class="wishlist-icon">
+                                <form action="{{ route('favoritesLists.addPieceToFavoritesList', [Auth::user()->favoritesList, $piece]) }}" method="POST" class="wishlist-icon">
                                     @csrf
                                     @method('POST')
                                     <input type="hidden" name="piece_id" value="{{ $piece->id }}">
@@ -40,19 +40,22 @@
                         <p class="info-text">Price: {{ $piece->price }}€</p>
                         <p class="info-text">State: {{ $piece->state }}</p>
                         <p class="info-text">Discount: {{ $piece->offer }}%</p>
-                        <img src="{{ Vite::asset('resources/images/123456.jpg') }}" alt="{{ $piece->name }}" class="img-fluid">
+                        <div class="button col">
+                            <a href="{{ route('pieces.show', $piece) }}">
+                                <img src="{{ Vite::asset($piece->image) }}" alt="resources/images/123456.jpg" class="img-fluid">
+                            </a>
+                        </div>
+                        
                     </div>
                     <div class="row">
+                        
                         @if(Auth::user()->rol->name == "Admin")
-                            <div class="button col">
-                                <a href="{{ route('pieces.show', $piece) }}" class="btn bg-primary w-100">Show</a>
-                            </div>
                             <div class="button col">
                                 <a href="{{ route('pieces.edit', $piece) }}" class="btn bg-primary w-100">Edit</a>
                             </div>
                         @else
                             <div class="button col mt-2">
-                                <form action="{{ route('cartLines.store') }}" method="POST">
+                                <form action="{{ route('cartLines.store', Auth::user()->cart) }}" method="POST">
                                     @csrf
                                     @method('POST')
                                     <input type="hidden" name="piece_id" value="{{ $piece->id }}">

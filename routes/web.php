@@ -127,8 +127,8 @@ Route::controller(OrderLineController::class)->group(function () {
 Route::controller(CartLineController::class)->group(function () {
     Route::get('cartLines','index')->name('cartLines.index');
     Route::get('cartLines/create', 'create')->name('cartLines.create');
-    Route::post('cartLines', 'store')->name('cartLines.store');
-    Route::delete('cartLines/{cartLine}','destroy')->name('cartLines.destroy');
+    Route::post('cartLines/{cart}', 'store')->name('cartLines.store');
+    Route::delete('cartLines/{cartLine}/{cart}','destroy')->name('cartLines.destroy');
     Route::get('cartLines/{cartLine}', 'show')->name('cartLines.show');
     Route::get('cartLines/{cartLine}/edit', 'edit')->name('cartLines.edit');
     Route::put('cartLines/{cartLine}', 'update')->name('cartLines.update');
@@ -144,7 +144,7 @@ Route::controller(FavoritesListController::class)->group(function () {
     Route::get('favoritesLists/{favoritesList}', 'show')->name('favoritesLists.show');
     Route::get('favoritesLists/{favoritesList}/editar', 'edit')->name('favoritesLists.edit');
     Route::put('favoritesLists/{favoritesList}', 'update')->name('favoritesLists.update');
-    Route::post('favoritesLists/{user_id}/{piece_id}', [FavoritesListController::class, 'addPieceToFavoritesList'])->name('favoritesLists.addPieceToFavoritesList');
-    Route::delete('favoritesLists/{user_id}/{piece_id}', [FavoritesListController::class, 'removePieceFromFavoritesList'])->name('favoritesLists.removePieceFromFavoritesList');
+    Route::post('favoritesLists/{favoritesList}/{piece}', 'addPieceToFavoritesList')->name('favoritesLists.addPieceToFavoritesList');
+    Route::delete('favoritesLists/{favoritesList}/{piece}', 'removePieceFromFavoritesList')->name('favoritesLists.removePieceFromFavoritesList');
     Route::get('favoritesLists/{user_id}/count', 'countPiecesInFavoritesList')->name('favoritesLists.countPieces');
 });

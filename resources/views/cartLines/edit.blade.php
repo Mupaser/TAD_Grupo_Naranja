@@ -5,7 +5,7 @@
     {{ route('cartLines.update',$cartLine) }}
 @endsection
 @section('inputs')
-    <input class="form-control" type="number" name="number" placeholder="Quantity" value="{{$cartLine->number}}" autofocus></br>
+    <input class="form-control" type="number" name="number" min="1" placeholder="Quantity" value="{{$cartLine->number}}" autofocus></br>
 @endsection
 @section('hidden')
     <input type="hidden" name="piece_id" value="{{$cartLine->piece_id}}"></br>

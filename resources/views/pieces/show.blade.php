@@ -4,9 +4,12 @@
     {{ $piece->name }}
 @endsection
 @section('show')
-    <p class="info-text">Price: {{ $piece->price }}</p>
+    @if ($piece->offer > 0)
+        <p class="price">Price: {{ $piece->price - ($piece->price * $piece->offer) }}<span> {{ $piece->price }}</span></p>
+    @else
+        <p class="price">Price: {{ $piece->price }}</p>
+    @endif
     <p class="info-text">State: {{ $piece->state }}</p>
-    <p class="info-text">Offer: {{ $piece->offer }}</p>
     <p class="info-text">Description: {{ $piece->description }}</p>
-    <img src="{{ Vite::asset('resources/images/123456.jpg') }}" alt="{{ $piece->name }}" class="img-fluid">
+    <img src="{{ Vite::asset($piece->image) }}" alt="resources/images/123456.jpg" class="img-fluid">
 @endsection
