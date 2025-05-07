@@ -42,7 +42,7 @@
                         <p class="info-text">Discount: {{ $piece->offer }}%</p>
                         <div class="button col">
                             <a href="{{ route('pieces.show', $piece) }}">
-                                <img src="{{ Vite::asset($piece->image) }}" alt="resources/images/123456.jpg" class="img-fluid">
+                                <img src="{{ Vite::asset($piece->image) }}" alt="Piece's image" class="img-fluid">
                             </a>
                         </div>
                         

@@ -19,7 +19,7 @@ class PieceSeeder extends Seeder
     {
         $categories = Category::all();
         $pieces = Piece::factory(15)->state(new Sequence(
-            fn (Sequence $sequence) => ['image' => 'resources/assets/'. str_replace(' ','_',$categories->pluck('name')->random()).'/image'.rand(1,5)]
+            fn (Sequence $sequence) => ['image' => 'resources/images/'. str_replace(' ','_',$categories->pluck('name')->random()).'/image'.rand(1,5).'.jpeg']
         ))->create();
         foreach($pieces as $piece)
             foreach($categories as $category)
