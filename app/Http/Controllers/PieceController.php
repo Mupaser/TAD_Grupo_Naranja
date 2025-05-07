@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Piece;
 use App\Models\Cart;
+use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -17,9 +18,10 @@ class PieceController extends Controller
      */
     public function index()
     {
+        $categories = Category::all();
         $pieces = Piece::paginate(10);
         $cart = Cart::firstOrCreate(['user_id' => Auth::id()]);
-        return view('pieces.index', compact('pieces', 'cart'));
+        return view('pieces.index', compact('categories', 'pieces', 'cart'));
     }
 
     /**
@@ -29,7 +31,8 @@ class PieceController extends Controller
      */
     public function create()
     {
-        return view('pieces.create');
+        $categories = Category::all();
+        return view('pieces.create', compact('categories'));
     }
 
     /**
@@ -48,6 +51,11 @@ class PieceController extends Controller
         $piece->description = $request->description;
         $piece->image = $request->image;
         $piece->save();
+
+        if($request->categories){
+            $piece->categories()->attach($request->categories);
+        }
+        
         return redirect()->route('pieces.show', $piece);
     }
 
@@ -70,7 +78,8 @@ class PieceController extends Controller
      */
     public function edit(Piece $piece)
     {
-        return view('pieces.edit', compact('piece'));
+        $categories = Category::all();
+        return view('pieces.edit', compact('piece', 'categories'));
     }
 
     /**
@@ -89,6 +98,15 @@ class PieceController extends Controller
         $piece->description = $request->description;
         $piece->image = $request->image;
         $piece->save();
+
+        if($request->categories){
+            if($piece->categories)
+                $piece->categories()->sync($request->categories);
+        }
+        else {
+            $piece->categories()->detach();
+        }
+
         return redirect()->route('pieces.show', $piece);
     }
 
@@ -102,5 +120,44 @@ class PieceController extends Controller
     {
         $piece->delete();
         return redirect()->route('pieces.index');
+    }
+
+    public static function sortByFavorites()
+    {
+        $categories = Category::all();
+        $pieces = Piece::withCount('favoritesLists')->orderBy('favorites_lists_count', 'desc')->paginate(10);
+        return view('pieces.index', compact('categories', 'pieces'));
+    }
+
+    public function addCategoryToPiece(Piece $piece, Category $category)
+    {
+        if (!$piece->categories->contains($category->id)) {
+            $piece->categories()->attach($category->id);
+        }
+        return redirect()->route('pieces.show', $piece);
+    }
+
+    public function removeCategoryFromPiece(Piece $piece, Category $category)
+    {
+        if ($piece->categories->contains($category->id)) {
+            $piece->categories()->detach($category->id);
+        }
+        return redirect()->route('pieces.show', $piece);
+    }
+
+    public function filterByCategory(Request $request)
+    {
+        $category_id = $request->input('category_id');
+
+        if ($category_id){
+            $pieces = Piece::whereHas('categories', function($query) use ($category_id) {
+                $query->where('categories.id', $category_id);
+            })->paginate(10);
+        } else {
+            $pieces = Piece::paginate(10);
+        }
+
+        $categories = Category::all();
+        return view('pieces.index', compact('pieces', 'categories'));
     }
 }

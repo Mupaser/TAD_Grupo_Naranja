@@ -13,6 +13,7 @@ use App\Http\Controllers\FavoritesListController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CategoryController;
 
 
 
@@ -40,7 +41,7 @@ Route::controller(UserController::class)->group(function () {
     Route::post('users', 'store')->name('users.store');
     Route::delete('users/{user}','destroy')->name('users.destroy');
     Route::get('users/{user}', 'show')->name('users.show');
-    Route::get('users/{user}/editar', 'edit')->name('users.edit');
+    Route::get('users/{user}/edit', 'edit')->name('users.edit');
     Route::put('users/{user}', 'update')->name('users.update');
 });
 
@@ -50,7 +51,7 @@ Route::controller(RolController::class)->group(function () {
     Route::post('rols', 'store')->name('rols.store');
     Route::delete('rols/{rol}','destroy')->name('rols.destroy');
     Route::get('rols/{rol}', 'show')->name('rols.show');
-    Route::get('rols/{rol}/editar', 'edit')->name('rols.edit');
+    Route::get('rols/{rol}/edit', 'edit')->name('rols.edit');
     Route::put('rols/{rol}', 'update')->name('rols.update');
 });
 
@@ -60,7 +61,7 @@ Route::controller(OrderController::class)->group(function () {
     Route::post('orders', 'store')->name('orders.store');
     Route::delete('orders/{user}','destroy')->name('orders.destroy');
     Route::get('orders/{order}', 'show')->name('orders.show');
-    Route::get('orders/{order}/editar', 'edit')->name('orders.edit');
+    Route::get('orders/{order}/edit', 'edit')->name('orders.edit');
     Route::put('orders/{order}', 'update')->name('orders.update');
 });
 
@@ -109,9 +110,11 @@ Route::controller(PieceController::class)->group(function () {
     Route::get('pieces/create', 'create')->name('pieces.create');
     Route::post('pieces', 'store')->name('pieces.store');
     Route::delete('pieces/{piece}','destroy')->name('pieces.destroy');
-    Route::get('pieces/{piece}', 'show')->name('pieces.show');
-    Route::get('pieces/{piece}/editar', 'edit')->name('pieces.edit');
+    Route::get('pieces/{piece}/piece', 'show')->name('pieces.show');
+    Route::get('pieces/{piece}/edit', 'edit')->name('pieces.edit');
     Route::put('pieces/{piece}', 'update')->name('pieces.update');
+    Route::get('pieces/sortByFavorites', 'sortByFavorites')->name('pieces.sortByFavorites');
+    Route::get('pieces/filter', 'filterByCategory')->name('pieces.filterByCategory');
 });
 
 Route::controller(OrderLineController::class)->group(function () {
@@ -120,7 +123,7 @@ Route::controller(OrderLineController::class)->group(function () {
     Route::post('orderLines', 'store')->name('orderLines.store');
     Route::delete('orderLines/{orderLine}','destroy')->name('orderLines.destroy');
     Route::get('orderLines/{orderLine}', 'show')->name('orderLines.show');
-    Route::get('orderLines/{orderLine}/editar', 'edit')->name('orderLines.edit');
+    Route::get('orderLines/{orderLine}/edit', 'edit')->name('orderLines.edit');
     Route::put('orderLines/{orderLine}', 'update')->name('orderLines.update');
 });
 
@@ -142,9 +145,19 @@ Route::controller(FavoritesListController::class)->group(function () {
     Route::post('favoritesLists', 'store')->name('favoritesLists.store');
     Route::delete('favoritesLists/{favoritesList}','destroy')->name('favoritesLists.destroy');
     Route::get('favoritesLists/{favoritesList}', 'show')->name('favoritesLists.show');
-    Route::get('favoritesLists/{favoritesList}/editar', 'edit')->name('favoritesLists.edit');
+    Route::get('favoritesLists/{favoritesList}/edit', 'edit')->name('favoritesLists.edit');
     Route::put('favoritesLists/{favoritesList}', 'update')->name('favoritesLists.update');
     Route::post('favoritesLists/{favoritesList}/{piece}', 'addPieceToFavoritesList')->name('favoritesLists.addPieceToFavoritesList');
     Route::delete('favoritesLists/{favoritesList}/{piece}', 'removePieceFromFavoritesList')->name('favoritesLists.removePieceFromFavoritesList');
     Route::get('favoritesLists/{user_id}/count', 'countPiecesInFavoritesList')->name('favoritesLists.countPieces');
+});
+
+Route::controller(CategoryController::class)->group(function () {
+    Route::get('categories','index')->name('categories.index');
+    Route::get('categories/create', 'create')->name('categories.create');
+    Route::post('categories', 'store')->name('categories.store');
+    Route::delete('categories/{category}','destroy')->name('categories.destroy');
+    Route::get('categories/{category}', 'show')->name('categories.show');
+    Route::get('categories/{category}/edit', 'edit')->name('categories.edit');
+    Route::put('categories/{category}', 'update')->name('categories.update');
 });
