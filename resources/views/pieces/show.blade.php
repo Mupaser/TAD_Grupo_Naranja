@@ -1,13 +1,12 @@
 @extends('layouts.app')
-
-@section('titulo','Piezas')
-
-@section('content')
-    <h1>Nombre {{ $piece->name }}</h1>
-    <p>Precio: {{ $piece->price }}</p>
-    <p>Estado: {{ $piece->estate }}</p>
-    <p>Oferta: {{ $piece->offer }}</p>
-    <p>Descripción: {{ $piece->description }}</p>
-    <p>Imagen: {{ $piece->image }}</p>
-    <button><a href="{{ route('pieces.edit', $piece) }}">Editar</a></button>
-@endsection()
+@section('title', 'Piece')
+@section('single')
+    {{ $piece->name }}
+@endsection
+@section('show')
+    <p class="info-text">Price: {{ $piece->price }}</p>
+    <p class="info-text">State: {{ $piece->state }}</p>
+    <p class="info-text">Offer: {{ $piece->offer }}</p>
+    <p class="info-text">Description: {{ $piece->description }}</p>
+    <img src="{{ Vite::asset('resources/images/123456.jpg') }}" alt="{{ $piece->name }}" class="img-fluid">
+@endsection

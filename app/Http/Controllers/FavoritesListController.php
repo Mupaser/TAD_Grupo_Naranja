@@ -89,4 +89,41 @@ class FavoritesListController extends Controller
         $favoritesList->delete();
         return redirect()->route('favoritesLists.index');
     }
+
+    public function addPieceToFavoritesList(Request $request)
+    {
+        $favoritesList = FavoritesList::where('user_id', $request->user_id)->first();
+        
+        if (!$favoritesList) {
+            $favoritesList = new FavoritesList();
+            $favoritesList->user_id = $request->user_id;
+            $favoritesList->save();
+        }
+
+        if (!$favoritesList->pieces->contains($request->piece_id)) {
+            $favoritesList->pieces()->attach($request->piece_id);
+        }
+
+        return redirect()->route('pieces.index');
+    }
+    
+    public function removePieceFromFavoritesList(Request $request, $user_id, $piece_id)
+    {
+        $favoritesList = FavoritesList::where('user_id', $user_id)->first();
+
+        if ($favoritesList) {
+            $favoritesList->pieces()->detach($piece_id);
+        }
+
+        return redirect()->route('pieces.index');
+    }
+
+    public static function countPiecesInFavoritesList($user_id)
+    {
+        $favoritesList = FavoritesList::where('user_id', $user_id)->first();
+        if ($favoritesList) {
+            return $favoritesList->pieces->count();
+        }
+        return 0;
+    }
 }

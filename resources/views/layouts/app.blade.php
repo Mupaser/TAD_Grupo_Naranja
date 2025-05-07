@@ -14,6 +14,8 @@
     @vite(['resources/js/main.js', 'resources/css/main.css'])
     @vite(['resources/js/glightbox.min.js', 'resources/css/glightbox.min.css'])
     @vite(['resources/js/tiny-slider.js', 'resources/css/tiny-slider.css'])
+    @vite(['resources/css/LineIcons.3.0.css'])
+    <link rel="stylesheet" href="https://cdn.lineicons.com/3.0/lineicons.css">
     <!--<link rel="stylesheet" href="assets/css/LineIcons.3.0.css" />
     <link rel="stylesheet" href="assets/css/tiny-slider.css" />
     <link rel="stylesheet" href="assets/css/glightbox.min.css" />
@@ -84,7 +86,21 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-end">
-                            <ul class="user-login">
+                            @if(Auth::user())
+                                <a href="{{ route('favoritesLists.show', Auth::user()->id) }}" class="wishlist btn btn-outline-primary position-relative text-white">
+                                    <i class="lni lni-heart"></i>
+                                    <span class="total-items badge bg-dark text-white position-absolute top-0 start-100 translate-middle">
+                                    {{ App\Http\Controllers\FavoritesListController::countPiecesInFavoritesList(Auth::user()->id) }}
+                                    </span>
+                                </a>
+                                <a href="{{ route('cartLines.getCartIdByUser', ['cart_id' => App\Http\Controllers\CartLineController::getCartIdByUser(Auth::user()->id)]) }}" class="cart btn btn-outline-primary rounded-circle position-relative text-white m-2">
+                                    <i class="lni lni-cart"></i>
+                                    <span class="total-items badge bg-dark text-white position-absolute top-0 start-100 translate-middle">
+                                    {{ App\Http\Controllers\CartLineController::countPiecesInCart(Auth::user()->id) }}
+                                    </span>
+                                </a>
+                            @endif
+                            <ul class="user-login m-2">
                                 @if (Route::has('login'))
                                     
                                         @auth

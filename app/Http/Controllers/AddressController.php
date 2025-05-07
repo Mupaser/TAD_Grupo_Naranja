@@ -36,14 +36,14 @@ class AddressController extends Controller
      */
     public function store(Request $request)
     {
-        $addresses = new Address();
-        $addresses->country = $request->country;
-        $addresses->city = $request->city;
-        $addresses->zipCode = $request->zipCode;
-        $addresses->street = $request->street;
-        $addresses->user_id = $request->user_id;
+        $address = new Address();
+        $address->country = $request->country;
+        $address->city = $request->city;
+        $address->zipCode = $request->zipCode;
+        $address->street = $request->street;
+        $address->user_id = $request->user_id;
         
-        $addresses->save();
+        $address->save();
         return redirect()->route('addresses.show', $address);     
     }
 
