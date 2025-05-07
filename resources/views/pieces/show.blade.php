@@ -9,7 +9,16 @@
     @else
         <p class="price">Price: {{ $piece->price }}</p>
     @endif
-    <p class="info-text">State: {{ $piece->state }}</p>
     <p class="info-text">Description: {{ $piece->description }}</p>
+    <p class="info-text">State: {{ $piece->state }}</p>
+    <p class="info-text">Discount: {{ $piece->offer }}%</p>
+    <p class="info-text">Categories: 
+        @if($piece->categories->isNotEmpty())
+            {{ $piece->categories->pluck('name')->join(', ') }}
+        @else
+            No categories
+        @endif
+    </p>
+    <p class="info-text">Favorites Count: {{ $piece->favorites_lists_count }}</p>
     <img src="{{ Vite::asset($piece->image) }}" alt="resources/images/123456.jpg" class="img-fluid">
 @endsection

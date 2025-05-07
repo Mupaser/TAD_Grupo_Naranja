@@ -75,6 +75,7 @@
                                 <li><a href="{{ route('orders.index') }}">Orders</a></li>
                                 <li><a href="{{ route('addresses.index') }}">Addresses</a></li>
                                 <li><a href="{{ route('payments.index') }}">Payments</a></li>
+                                <li><a href="{{ route('categories.index') }}">Categories</a></li>
                                 @else
                                 <li><a href="{{ route('pieces.index') }}">Pieces</a></li>
                                 <li><a href="{{ route('orders.index') }}">Orders</a></li>
@@ -85,11 +86,11 @@
                     </div>
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-end">
-                            @if(Auth::user())
+                            @if(Auth::check() && Auth::user()->rol->name == "Customer")
                                 <a href="{{ route('favoritesLists.show', Auth::user()->id) }}" class="wishlist btn btn-outline-primary position-relative text-white">
                                     <i class="lni lni-heart"></i>
                                     <span class="total-items badge bg-dark text-white position-absolute top-0 start-100 translate-middle">
-                                    {{ Auth::user()->favoritesList->pieces->count() }}
+                                    {{ Auth::user()->favoritesList ? Auth::user()->favoritesList->pieces->count() : 0 }}
                                     </span>
                                 </a>
                                 <a href="{{ route('carts.show', Auth::user()->cart) }}" class="cart btn btn-outline-primary rounded-circle position-relative text-white m-2">

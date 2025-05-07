@@ -1,6 +1,27 @@
 @extends('layouts.app')
 @section('title', 'Pieces')
 @section('index')
+    <div class="row">
+        <div class="button">
+            <form action="{{ route('pieces.sortByFavorites') }}" method="GET" class="d-flex justify-content-end">
+                @csrf
+                <button type="submit" class="btn btn-primary">Sort by Favorites</button>
+            </form>
+        </div>
+        <div class="row mb-3">
+            <form action="{{ route('pieces.filterByCategory') }}" method="GET" class="d-flex justify-content-start">
+                <select class="form-select me-2 w-auto" name="category_id">
+                    <option value="">All Categories</option>
+                    @foreach($categories as $category)
+                        <option value="{{ $category->id }}" {{ request('category_id') == $category->id ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+                <button type="submit" class="btn btn-primary">Filter</button>
+            </form>
+        </div>
+    </div>
     @foreach($pieces as $piece)
         <div class="col-lg-3 col-md-6 col-12">
             <div class="single-product">
@@ -40,6 +61,16 @@
                         <p class="info-text">Price: {{ $piece->price }}€</p>
                         <p class="info-text">State: {{ $piece->state }}</p>
                         <p class="info-text">Discount: {{ $piece->offer }}%</p>
+                        <p class="info-text">Categories: 
+                            @if($piece->categories->isNotEmpty())
+                                {{ $piece->categories->pluck('name')->join(', ') }}
+                            @else
+                                No categories
+                            @endif
+                        </p>
+                        
+                            <p class="info-text">Favorites Count: {{ $piece->favorites_lists_count }}</p>
+
                         <div class="button col">
                             <a href="{{ route('pieces.show', $piece) }}">
                                 <img src="{{ Vite::asset($piece->image) }}" alt="Piece's image" class="img-fluid">
@@ -59,7 +90,6 @@
                                     @csrf
                                     @method('POST')
                                     <input type="hidden" name="piece_id" value="{{ $piece->id }}">
-                                    <input type="hidden" name="cart_id" value="{{ $cart->id }}">
                                     <input type="number" name="number" value="1" class="form-control mb-2" placeholder="Quantity" required>
                                     <button type="submit" class="btn bg-primary w-100">Add to Cart</button>
                                 </form>
