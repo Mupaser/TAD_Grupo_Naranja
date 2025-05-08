@@ -58,9 +58,13 @@
                     <div class="info-body">
                         <h3 class="title">{{ $piece->name }}</h3>
                         <p class="info-text">Description: {{ $piece->description }}</p>
-                        <p class="info-text">Price: {{ $piece->price }}€</p>
+                        @if ($piece->offer > 0)
+                            <p class="price">Price: <del>{{ $piece->price }}</del>€ <span> {{ $piece->price - ($piece->price * $piece->offer) }}€</span></p>
+                        @else
+                            <p class="price">Price: <span>{{ $piece->price }}€</span></p>
+                        @endif
                         <p class="info-text">State: {{ $piece->state }}</p>
-                        <p class="info-text">Discount: {{ $piece->offer }}%</p>
+                        <p class="info-text">Discount: {{ $piece->offer * 100 }}%</p>
                         <p class="info-text">
                             <i class="lni lni-tag"></i>:
                             @if($piece->categories->isNotEmpty())

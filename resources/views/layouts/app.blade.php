@@ -70,15 +70,13 @@
                                 @if(Auth::user()->rol->name == "Admin")
                                 <li><a href="{{ route('pieces.index') }}">Pieces</a></li>
                                 <li><a href="{{ route('users.index') }}">Users</a></li>
-                                <li><a href="{{ route('favoritesLists.index') }}">Favorites Lists</a></li>
                                 <li><a href="{{ route('rols.index') }}">Rols</a></li>
-                                <li><a href="{{ route('orders.index') }}">Orders</a></li>
-                                <li><a href="{{ route('addresses.index') }}">Addresses</a></li>
+                                <li><a href="{{ route('orders.index',Auth::user()) }}">Orders</a></li>
                                 <li><a href="{{ route('payments.index') }}">Payments</a></li>
                                 <li><a href="{{ route('categories.index') }}">Categories</a></li>
                                 @else
                                 <li><a href="{{ route('pieces.index') }}">Pieces</a></li>
-                                <li><a href="{{ route('orders.index') }}">Orders</a></li>
+                                <li><a href="{{ route('orders.index',Auth::user()) }}">Orders</a></li>
                                 @endif
                             </ul>
                             @endauth

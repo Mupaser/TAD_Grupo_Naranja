@@ -56,9 +56,9 @@ Route::controller(RolController::class)->group(function () {
 });
 
 Route::controller(OrderController::class)->group(function () {
-    Route::get('orders','index')->name('orders.index');
-    Route::get('orders/create', 'create')->name('orders.create');
-    Route::post('orders', 'store')->name('orders.store');
+    Route::get('orders/{user}','index')->name('orders.index');
+    Route::post('orders/create', 'create')->name('orders.create');
+    Route::post('orders/{cart}', 'store')->name('orders.store');
     Route::delete('orders/{user}','destroy')->name('orders.destroy');
     Route::get('orders/{order}', 'show')->name('orders.show');
     Route::get('orders/{order}/edit', 'edit')->name('orders.edit');
