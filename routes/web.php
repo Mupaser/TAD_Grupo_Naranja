@@ -27,14 +27,15 @@ use App\Http\Controllers\CategoryController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('home');
+Route::controller(PieceController::class)->group(function () {
+Route::get('/', 'home');
 });
-
-Route::get('/home', function () {
+/*Route::get('/home', function () {
     return view('home');
-})->middleware(['auth','verified']);
-
+})->middleware(['auth','verified']);*/
+Route::controller(PieceController::class)->group(function () {
+    Route::get('/home','home')->middleware(['auth','verified']);
+});
 Route::controller(UserController::class)->group(function () {
     Route::get('users','index')->name('users.index');
     Route::get('users/create', 'create')->name('users.create');
@@ -56,11 +57,11 @@ Route::controller(RolController::class)->group(function () {
 });
 
 Route::controller(OrderController::class)->group(function () {
-    Route::get('orders/{user}','index')->name('orders.index');
+    Route::get('orders/{user?}','index')->name('orders.index');
     Route::post('orders/create', 'create')->name('orders.create');
     Route::post('orders/{cart}', 'store')->name('orders.store');
     Route::delete('orders/{user}','destroy')->name('orders.destroy');
-    Route::get('orders/{order}', 'show')->name('orders.show');
+    Route::get('orders/order/{order}', 'show')->name('orders.show');
     Route::get('orders/{order}/edit', 'edit')->name('orders.edit');
     Route::put('orders/{order}', 'update')->name('orders.update');
 });
@@ -106,6 +107,7 @@ Route::controller(CartController::class)->group(function () {
 });
 
 Route::controller(PieceController::class)->group(function () {
+    Route::get('/home','home');
     Route::get('pieces','index')->name('pieces.index');
     Route::get('pieces/create', 'create')->name('pieces.create');
     Route::post('pieces', 'store')->name('pieces.store');
