@@ -108,13 +108,4 @@ class FavoritesListController extends Controller
 
         return redirect()->route('pieces.index');
     }
-
-    public static function countPiecesInFavoritesList($user_id)
-    {
-        $favoritesList = FavoritesList::where('user_id', $user_id)->first();
-        if ($favoritesList) {
-            return $favoritesList->pieces->count();
-        }
-        return 0;
-    }
 }

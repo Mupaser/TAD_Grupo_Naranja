@@ -87,10 +87,10 @@
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-end">
                             @if(Auth::check() && Auth::user()->rol->name == "Customer")
-                                <a href="{{ route('favoritesLists.show', Auth::user()->id) }}" class="wishlist btn btn-outline-primary position-relative text-white">
+                                <a href="{{ route('favoritesLists.show', Auth::user()->favoritesList) }}" class="wishlist btn btn-outline-primary position-relative text-white">
                                     <i class="lni lni-heart"></i>
                                     <span class="total-items badge bg-dark text-white position-absolute top-0 start-100 translate-middle">
-                                    {{ Auth::user()->favoritesList ? Auth::user()->favoritesList->pieces->count() : 0 }}
+                                    {{ Auth::user()->favoritesList->pieces->count() }}
                                     </span>
                                 </a>
                                 <a href="{{ route('carts.show', Auth::user()->cart) }}" class="cart btn btn-outline-primary rounded-circle position-relative text-white m-2">
@@ -102,29 +102,29 @@
                             @endif
                             <ul class="user-login m-2">
                                 @if (Route::has('login'))
-                                    
-                                        @auth
-                                            <div class="dropdown">
-                                                <button class="btn btn-primary text-white dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                    {{ Auth::user()->name }}
-                                                </button>
-                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                    <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a></li>
-                                                </ul>
-                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                                    @csrf
-                                                </form>
-                                            </div>
-                                        @else
+                                    @auth
+                                        <div class="dropdown">
+                                            <button class="btn btn-primary text-white dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                {{ Auth::user()->name }}
+                                            </button>
+                                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                <li><a class="dropdown-item" href="{{ route('users.show', Auth::user()) }}">Profile</a></li>
+                                                <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a></li>
+                                            </ul>
+                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                @csrf
+                                            </form>
+                                        </div>
+                                    @else
+                                        <li>
+                                        <a href="{{ route('login') }}">Log in</a>
+                                        </li>
+                                        @if (Route::has('register'))
                                             <li>
-                                            <a href="{{ route('login') }}">Log in</a>
-                                            </li>
-                                            @if (Route::has('register'))
-                                                <li>
-                                                <a href="{{ route('register') }}">Register</a>
-                                                <li>
-                                            @endif
-                                        @endauth
+                                            <a href="{{ route('register') }}">Register</a>
+                                            <li>
+                                        @endif
+                                    @endauth
                                 @endif
                             </ul>
                         </div>

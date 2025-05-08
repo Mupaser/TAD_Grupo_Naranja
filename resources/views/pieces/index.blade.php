@@ -18,7 +18,7 @@
                         </option>
                     @endforeach
                 </select>
-                <button type="submit" class="btn btn-primary">Filter</button>
+                <button type="submit" class="btn btn-primary text-white">Filter</button>
             </form>
         </div>
     </div>
@@ -61,7 +61,8 @@
                         <p class="info-text">Price: {{ $piece->price }}€</p>
                         <p class="info-text">State: {{ $piece->state }}</p>
                         <p class="info-text">Discount: {{ $piece->offer }}%</p>
-                        <p class="info-text">Categories: 
+                        <p class="info-text">
+                            <i class="lni lni-tag"></i>:
                             @if($piece->categories->isNotEmpty())
                                 {{ $piece->categories->pluck('name')->join(', ') }}
                             @else
@@ -69,7 +70,9 @@
                             @endif
                         </p>
                         
-                            <p class="info-text">Favorites Count: {{ $piece->favorites_lists_count }}</p>
+                            <p class="info-text">
+                                <i class="lni lni-heart"></i>
+                                Count: {{ $piece->favorites_lists_count }}</p>
 
                         <div class="button col">
                             <a href="{{ route('pieces.show', $piece) }}">
@@ -89,6 +92,7 @@
                                 <form action="{{ route('cartLines.store', Auth::user()->cart) }}" method="POST">
                                     @csrf
                                     @method('POST')
+                                    <input type="hidden" name="cart_id" value="{{ $cart->id }}">
                                     <input type="hidden" name="piece_id" value="{{ $piece->id }}">
                                     <input type="number" name="number" value="1" class="form-control mb-2" placeholder="Quantity" required>
                                     <button type="submit" class="btn bg-primary w-100">Add to Cart</button>
