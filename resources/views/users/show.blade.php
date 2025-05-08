@@ -7,7 +7,7 @@
     <div class="row">
         <h3 class="title mt-2">Personal Information</h3>
         <p class="info-text">Last name: {{ $user->lastName }}</p>
-        <p class="info-text">E-mail: {{ $user->emailAddress }}</p>
+        <p class="info-text">E-mail: {{ $user->email }}</p>
         <p class="info-text">Phone number: {{ $user->phone }}</p>
         <p class="info-text">Rol: {{ $user->rol->name }}</p>
     </div>
