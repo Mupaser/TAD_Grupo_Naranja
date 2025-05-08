@@ -92,7 +92,7 @@
                                 <form action="{{ route('cartLines.store', Auth::user()->cart) }}" method="POST">
                                     @csrf
                                     @method('POST')
-                                    <input type="hidden" name="cart_id" value="{{ $cart->id }}">
+                                    <input type="hidden" name="cart_id" value="{{ Auth::user()->cart->id }}">   
                                     <input type="hidden" name="piece_id" value="{{ $piece->id }}">
                                     <input type="number" name="number" value="1" class="form-control mb-2" placeholder="Quantity" required>
                                     <button type="submit" class="btn bg-primary w-100">Add to Cart</button>

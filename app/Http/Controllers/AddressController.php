@@ -85,8 +85,8 @@ class AddressController extends Controller
         $address->street = $request->street;
         $address->user_id = $request->user_id;
         
-        $addresses->save();
-        return redirect()->route('addresses.show', $address); 
+        $address->save();
+        return redirect()->route('users.show', $address->user); 
     }
 
     /**
@@ -98,6 +98,6 @@ class AddressController extends Controller
     public function destroy(Address $address)
     {
         $address->delete();
-        return redirect()->route('addresses.index');
+        return redirect()->route('users.show', $address->user); 
     }
 }

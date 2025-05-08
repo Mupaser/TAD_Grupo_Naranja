@@ -23,8 +23,23 @@
                 <p class="info-text">City: {{ $address->city }}</p>
                 <p class="info-text">Street: {{ $address->street }}</p>                
                 <p class="info-text">Zip Code: {{ $address->zipCode }}</p>
+                <div class="row justify-content-center">
+                    <div class="button col">
+                        <form action="{{ route('addresses.destroy', $address) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn bg-primary w-100">Delete</button>
+                        </form>
+                    </div>
+                    <div class="button col">
+                        <a href="{{ route('addresses.edit', $address) }}" class="btn bg-primary w-100">Edit</a>
+                    </div>    
+                </div>       
             @endforeach
         @endif
+        <div class="button col mt-4">
+            <a href="{{ route('addresses.create') }}" class="btn bg-primary w-100">Add</a>
+        </div>
     </div>
     <div class="row mt-4">
         @if (!$user->payment)
