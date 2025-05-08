@@ -13,30 +13,49 @@
             <h4 class="info-text mt-2">{{ $cartLine->piece->name }}</h4>
             <p class="info-text">Description: {{ $cartLine->piece->description }}</p>
             <p class="info-text">State: {{ $cartLine->piece->state }}</p>
-            <p class="info-text">Price: {{ $cartLine->piece->price }}€</p>
+            @if ($cartLine->piece->offer > 0)
+                <p class="price">Price: {{ $cartLine->piece->price - ($cartLine->piece->price * $cartLine->piece->offer) }}€ <span> {{ $cartLine->piece->price }}€</span></p>
+            @else
+                <p class="price">Price: {{ $cartLine->piece->price }}€</p>
+            @endif
             <p class="info-text">Quantity: {{ $cartLine->number }}</p>
-            <p class="info-text">Discount: {{ $cartLine->piece->offer }}%</p>
+            <p class="info-text">Discount: {{ $cartLine->piece->offer *100 }}%</p>
             <p class="info-text">Total Price: {{ $cartLine->totalPrice }}€</p>
-            <img src="{{ Vite::asset($cartLine->piece->image) }}" alt="resources/images/123456.jpg" class="img-fluid w-50">
+            <img src="{{ Vite::asset($cartLine->piece->image) }}" alt="Piece's image" class="img-fluid">
             <div class="row">
                 <div class="button col">
                     <form action="{{ route('cartLines.edit', $cartLine) }}" method="POST">
                         @csrf
-                        @method('GET')
-                        <button type="submit" class="btn bg-primary w-100" aria-label="Close">Edit</button>
+                        @method('PUT')
+                        <button type="submit" class="btn bg-primary w-100">Edit</button>
                     </form>
                 </div>
                 <div class="button col">
                     <form action="{{ route('cartLines.destroy', [$cartLine, $cart]) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="btn bg-primary w-100" aria-label="Close">Delete from Cart</button>
+                        <button type="submit" class="btn bg-primary w-100">Delete from Cart</button>
                     </form>
                 </div>
             </div>
         </div>
     @endforeach
-
+    @if ($cart->cartLines->isNotEmpty())
+        <div class="single-product">
+            <div class="row">
+                <div class="col">
+                    <p class="price">Total amount: <strong class="text-primary">{{$totalAmount}}€</strong><p>
+                </div>
+                <div class="button col">
+                    <form action="{{route('orders.create')}}" method="POST">
+                        @csrf
+                        <input hidden="true" name="totalAmount" value="{{$totalAmount}}">
+                        <button type="submit" class="btn bg-primary w-100">Buy</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    @endif
 @endsection
 @section('edit')
     {{ route('carts.edit', $cart) }}

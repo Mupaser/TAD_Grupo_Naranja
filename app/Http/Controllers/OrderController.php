@@ -2,8 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\OrderLine;
+use App\Models\Payment;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Expr\Cast\Double;
 
 class OrderController extends Controller
 {
@@ -12,9 +18,15 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
-        $orders = Order::paginate(10);
+        $orders = null;
+        if($user->rol->name == "Admin"){
+            $orders = Order::paginate(10);
+        }else{
+            $orders = $user->orders()->paginate(10);
+        }
+        
         return view('orders.index', compact('orders'));
     }
 
@@ -23,9 +35,11 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('orders.create');
+        $totalAmount = $request->totalAmount;
+        $payments = Payment::all();
+        return view('orders.create',compact('totalAmount','payments'));
     }
 
     /**
@@ -34,7 +48,7 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Cart $cart)
     {
         $order = new Order();
         $order->totalPrice = $request->totalPrice;
@@ -44,6 +58,15 @@ class OrderController extends Controller
         $order->payment = $request->payment;
         $order->user_id = $request->user_id;
         $order->save();
+        foreach($cart->cartLines as $cartLine){
+            $orderLine = new OrderLine();
+            $orderLine->piece_id = $cartLine->piece_id;
+            $orderLine->number = $cartLine->number;
+            $orderLine->totalPrice = $cartLine->totalPrice;
+            $orderLine->pieceName = $cartLine->piece->name;
+            $order->orderLines()->save($orderLine);
+        } 
+    
         return redirect()->route('orders.show',$order);
     }
 

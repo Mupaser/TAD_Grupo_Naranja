@@ -51,7 +51,10 @@ class CartController extends Controller
      */
     public function show(Cart $cart)
     {
-        return view('carts.show', compact('cart'));
+        $totalAmount = 0;
+        foreach($cart->cartLines as $cartLine)
+            $totalAmount += $cartLine->totalPrice;
+        return view('carts.show', compact('cart','totalAmount'));
     }
 
     /**

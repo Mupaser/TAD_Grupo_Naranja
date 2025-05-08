@@ -41,7 +41,7 @@ class CartLineController extends Controller
 
         if ($cartLine) {
             $cartLine->number += $request->number;
-            $cartLine->totalPrice += $cartLine->piece->price * $request->number;
+            $cartLine->totalPrice += ($cartLine->piece->price-($cartLine->piece->price * $cartLine->piece->offer)) * $request->number;
 
             $cartLine->save();
         } else {
@@ -49,7 +49,7 @@ class CartLineController extends Controller
             $cartLine->piece_id = $request->piece_id;
             $cartLine->number = $request->number;
             $cartLine->cart_id = $request->cart_id;
-            $cartLine->totalPrice = $cartLine->piece->price * $cartLine->number;
+            $cartLine->totalPrice = ($cartLine->piece->price-($cartLine->piece->price * $cartLine->piece->offer)) * $cartLine->number;
 
             $cartLine->save();
             $cart->cartLines()->save($cartLine);
@@ -91,7 +91,7 @@ class CartLineController extends Controller
     public function update(Request $request, CartLine $cartLine)
     {
         $cartLine->number = $request->number;
-        $cartLine->totalPrice = $cartLine->piece->price * $cartLine->number;
+        $cartLine->totalPrice = ($cartLine->piece->price-($cartLine->piece->price * $cartLine->piece->offer)) * $cartLine->number;
         $cartLine->save();
         return redirect()->route('carts.show', $cartLine->cart);
     }

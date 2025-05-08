@@ -8,10 +8,14 @@
     <div class="single-product">
         <h4 class="info-text mt-2">{{ $piece->name }}</h4>
         <p class="info-text">Description: {{ $piece->description }}</p>
-        <p class="info-text">Price: {{ $piece->price }}€</p>
+        @if ($piece->offer > 0)
+            <p class="price">Price: {{ $piece->price - ($piece->price * $piece->offer) }}€ <span> {{ $piece->price }}€</span></p>
+        @else
+            <p class="price">Price: {{ $piece->price }}€</p>
+        @endif
         <p class="info-text">State: {{ $piece->state }}</p>
         <p class="info-text">Discount: {{ ($piece->offer)*100 }}%</p>
-        <img src="{{ Vite::asset('resources/images/123456.jpg') }}" alt="{{ $piece->name }}" class="img-fluid w-50">
+        <img src="{{ Vite::asset($piece->image) }}" alt="{{ $piece->name }}" class="img-fluid">
         <div class="row">
             @if(Auth::user()->rol->name == "Customer")
                 <div class="button col">
