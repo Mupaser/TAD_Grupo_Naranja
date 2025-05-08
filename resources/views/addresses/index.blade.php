@@ -9,19 +9,20 @@
                     @method('DELETE')
                     <button type="submit" class="btn-close btn-close-white bg-primary" aria-label="Close"></button>
                 </form>
-            <div class="product-info">
-                <div class="info-body">
-                    <h3 class="title">{{ $address->country }}</h3>
-                    <p class="info-text">{{ $address->city }}</p>
-                    <p class="info-text">{{ $address->street }}</p>
-                    <p class="info-text">{{ $address->zipCode }}</p>
-                </div>
-                <div class="row">
-                    <div class="button col">
-                        <a href="{{ route('addresses.show', $address) }}" class="btn bg-primary w-100">Show</a>
+                <div class="product-info">
+                    <div class="info-body">
+                        <h3 class="title">{{ $address->country }}</h3>
+                        <p class="info-text">{{ $address->city }}</p>
+                        <p class="info-text">{{ $address->street }}</p>
+                        <p class="info-text">{{ $address->zipCode }}</p>
                     </div>
-                    <div class="button col">
-                        <a href="{{ route('addresses.edit', $address) }}" class="btn bg-primary w-100">Edit</a>
+                    <div class="row">
+                        <div class="button col">
+                            <a href="{{ route('addresses.show', $address) }}" class="btn bg-primary w-100">Show</a>
+                        </div>
+                        <div class="button col">
+                            <a href="{{ route('addresses.edit', $address) }}" class="btn bg-primary w-100">Edit</a>
+                        </div>
                     </div>
                 </div>
             </div>

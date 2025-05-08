@@ -10,16 +10,18 @@
         <p class="info-text">Description: {{ $piece->description }}</p>
         <p class="info-text">Price: {{ $piece->price }}€</p>
         <p class="info-text">State: {{ $piece->state }}</p>
-        <p class="info-text">Discount: {{ $piece->offer }}%</p>
+        <p class="info-text">Discount: {{ ($piece->offer)*100 }}%</p>
         <img src="{{ Vite::asset('resources/images/123456.jpg') }}" alt="{{ $piece->name }}" class="img-fluid w-50">
         <div class="row">
-            <div class="button col">
-                <form action="{{ route('favoritesLists.removePieceFromFavoritesList', [Auth::user()->favoritesList, $piece]) }}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="btn bg-primary w-100" aria-label="Close">Delete from Favorites List</button>
-                </form>
-            </div>
+            @if(Auth::user()->rol->name == "Customer")
+                <div class="button col">
+                    <form action="{{ route('favoritesLists.removePieceFromFavoritesList', [Auth::user()->favoritesList, $piece]) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn bg-primary w-100" aria-label="Close">Delete from Favorites List</button>
+                    </form>
+                </div>
+            @endif
         </div>
     </div>
     @endforeach
