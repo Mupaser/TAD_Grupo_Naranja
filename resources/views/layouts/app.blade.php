@@ -51,7 +51,7 @@
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-middle top-left">
                             <ul class="menu-top-link useful-links">
-                                <li><a class="" href="/">Home</a></li>
+                                <li><a class="" href="/home">Home</a></li>
                                 <li>
                                     <div class="select-position">
                                         <select id="select5">
@@ -136,6 +136,9 @@
     <!-- Start Trending Product Area -->
     <section class="trending-product section" style="margin-top: 12px;">
         <div class="container">
+            @hasSection('home')
+                @yield('home')
+            @endif
             <div class="row">
                 <div class="col-12">
                     <div class="section-title">
@@ -196,6 +199,7 @@
                                                     @hasSection('show')
                                                         @yield('show')
                                                         <div class="row">
+                                                            @auth
                                                             @if (Auth::user()->rol->name == "Admin")
                                                                 @hasSection('edit')
                                                                     <div class="button col">
@@ -214,6 +218,7 @@
                                                                     </form>
                                                                 @endif
                                                             @endif
+                                                            @endauth
                                                         </div>
                                                     @endif
                                         </div>

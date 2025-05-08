@@ -160,4 +160,10 @@ class PieceController extends Controller
         $categories = Category::all();
         return view('pieces.index', compact('pieces', 'categories'));
     }
+
+    public function home(){
+        $categories = Category::all();
+        $pieces = Piece::withCount('favoritesLists')->orderBy('favorites_lists_count', 'desc')->paginate(10);
+        return view('home', compact('pieces'));
+    }
 }
