@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             CartSeeder::class,
             CategorySeeder::class,
             PieceSeeder::class,
+            DiscountSeeder::class,
         ]);
     }
 }

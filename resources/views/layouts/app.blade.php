@@ -71,6 +71,7 @@
                                 <li><a href="{{ route('orders.index',Auth::user()) }}">{{__('messages.orders')}}</a></li>
                                 <li><a href="{{ route('payments.index') }}">{{__('messages.payments')}}</a></li>
                                 <li><a href="{{ route('categories.index') }}">{{__('messages.categories')}}</a></li>
+                                <li><a href="{{ route('categories.index') }}">{{__('messages.discounts')}}</a></li>
                                 @else
                                 <li><a href="{{ route('pieces.index') }}">{{__('messages.pieces')}}</a></li>
                                 <li><a href="{{ route('orders.index',Auth::user()) }}">{{__('messages.orders')}}</a></li>

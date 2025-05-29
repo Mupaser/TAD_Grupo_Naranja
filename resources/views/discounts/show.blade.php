@@ -6,7 +6,7 @@
 @section('show')
     <p class="info-text">Code: {{ $discount->code }}</p>
     <p class="info-text">Percentage: {{ $discount->percentage }}</p>
-    <p class="info-text">Valid: {{ $discount->valid }}</p>
+    <p class="info-text">Valid: {{ $discount->valid ? 'true' : 'false' }}</p>
 @endsection
 @section('edit')
     {{ route('discounts.edit', $discount) }}

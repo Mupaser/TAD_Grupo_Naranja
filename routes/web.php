@@ -106,6 +106,7 @@ Route::controller(CartController::class)->group(function () {
     Route::get('carts/{cart}/edit', 'edit')->name('carts.edit');
     Route::put('carts/{cart}', 'update')->name('carts.update');
     Route::delete('carts/{cart}', 'destroy')->name('carts.destroy');
+    Route::post('carts/{cart}/applyDiscount', 'applyDiscount')->name('carts.applyDiscount');
 });
 
 Route::controller(PieceController::class)->group(function () {
