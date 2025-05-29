@@ -8,6 +8,8 @@ use App\Models\Cart;
 use App\Models\Category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Session;
 
 class PieceController extends Controller
 {
@@ -162,6 +164,7 @@ class PieceController extends Controller
     }
 
     public function home(){
+        App::setLocale(Session::get('locale'));
         $categories = Category::all();
         $pieces = Piece::withCount('favoritesLists')->orderBy('favorites_lists_count', 'desc')->paginate(10);
         return view('home', compact('pieces'));

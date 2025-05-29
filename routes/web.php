@@ -14,8 +14,7 @@ use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CategoryController;
-
-
+use App\Http\Controllers\LangController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +34,9 @@ Route::get('/', 'home');
 })->middleware(['auth','verified']);*/
 Route::controller(PieceController::class)->group(function () {
     Route::get('/home','home')->middleware(['auth','verified']);
+});
+Route::controller(LangController::class)->group(function () {
+    Route::get("lang/{locate}","cambiarIdioma")->name('lang.change');
 });
 Route::controller(UserController::class)->group(function () {
     Route::get('users','index')->name('users.index');
@@ -107,7 +109,7 @@ Route::controller(CartController::class)->group(function () {
 });
 
 Route::controller(PieceController::class)->group(function () {
-    Route::get('/home','home');
+    Route::get('/home','home')->name('home');
     Route::get('pieces','index')->name('pieces.index');
     Route::get('pieces/create', 'create')->name('pieces.create');
     Route::post('pieces', 'store')->name('pieces.store');

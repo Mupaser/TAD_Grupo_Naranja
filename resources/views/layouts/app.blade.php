@@ -51,15 +51,12 @@
                     <div class="col-lg-4 col-md-4 col-12">
                         <div class="top-middle top-left">
                             <ul class="menu-top-link useful-links">
-                                <li><a class="" href="/home">Home</a></li>
-                                <li>
-                                    <div class="select-position">
-                                        <select id="select5">
-                                            <option value="0" selected>English</option>
-                                            <option value="1">Español</option>
-                                        </select>
-                                    </div>
-                                </li>
+                                <li><a class="" href="/home">{{__('messages.home')}}</a></li>
+                                @if(Session::get('locale')=="es")
+                                <li><a class="" href="{{route('lang.change','en')}}">English</a></li>
+                                @else
+                                <li><a class="" href="{{route('lang.change','es')}}">Español</a></li>
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -68,15 +65,15 @@
                             @auth
                             <ul class="useful-links">
                                 @if(Auth::user()->rol->name == "Admin")
-                                <li><a href="{{ route('pieces.index') }}">Pieces</a></li>
-                                <li><a href="{{ route('users.index') }}">Users</a></li>
-                                <li><a href="{{ route('rols.index') }}">Rols</a></li>
-                                <li><a href="{{ route('orders.index',Auth::user()) }}">Orders</a></li>
-                                <li><a href="{{ route('payments.index') }}">Payments</a></li>
-                                <li><a href="{{ route('categories.index') }}">Categories</a></li>
+                                <li><a href="{{ route('pieces.index') }}">{{__('messages.pieces')}}</a></li>
+                                <li><a href="{{ route('users.index') }}">{{__('messages.users')}}</a></li>
+                                <li><a href="{{ route('rols.index') }}">{{__('messages.rols')}}</a></li>
+                                <li><a href="{{ route('orders.index',Auth::user()) }}">{{__('messages.orders')}}</a></li>
+                                <li><a href="{{ route('payments.index') }}">{{__('messages.payments')}}</a></li>
+                                <li><a href="{{ route('categories.index') }}">{{__('messages.categories')}}</a></li>
                                 @else
-                                <li><a href="{{ route('pieces.index') }}">Pieces</a></li>
-                                <li><a href="{{ route('orders.index',Auth::user()) }}">Orders</a></li>
+                                <li><a href="{{ route('pieces.index') }}">{{__('messages.pieces')}}</a></li>
+                                <li><a href="{{ route('orders.index',Auth::user()) }}">{{__('messages.orders')}}</a></li>
                                 @endif
                             </ul>
                             @endauth
@@ -106,8 +103,8 @@
                                                 {{ Auth::user()->name }}
                                             </button>
                                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                <li><a class="dropdown-item" href="{{ route('users.show', Auth::user()) }}">Profile</a></li>
-                                                <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a></li>
+                                                <li><a class="dropdown-item" href="{{ route('users.show', Auth::user()) }}">{{__('messages.profile')}}</a></li>
+                                                <li><a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{__('messages.logout')}}</a></li>
                                             </ul>
                                             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                                 @csrf
@@ -115,11 +112,11 @@
                                         </div>
                                     @else
                                         <li>
-                                        <a href="{{ route('login') }}">Log in</a>
+                                        <a href="{{ route('login') }}">{{__('messages.login')}}</a>
                                         </li>
                                         @if (Route::has('register'))
                                             <li>
-                                            <a href="{{ route('register') }}">Register</a>
+                                            <a href="{{ route('register') }}">{{__('messages.register')}}</a>
                                             <li>
                                         @endif
                                     @endauth
