@@ -5,12 +5,11 @@
         <div class="section-title">
             <h1>CASEJA</h1>
         </div>
-
-        <p class="info-body text-center">Welcome to your trusted favorite to buy car parts. Find out which are th most requested car parts in the section below.</p>
+        <p class="info-body text-center">{{__('messages.welcome')}}</p>
     </div>
 </div>
 @endsection
-@section('title', 'Trending pieces')
+@section('title', __('messages.popular'))
 @section('index')
     @foreach($pieces as $piece)
         <div class="col-lg-3 col-md-6 col-12">
@@ -49,14 +48,14 @@
                 <div class="product-info">
                     <div class="info-body">
                         <h3 class="title">{{ $piece->name }}</h3>
-                        <p class="info-text">Description: {{ $piece->description }}</p>
+                        <p class="info-text">{{__('messages.description')}}: {{ $piece->description }}</p>
                         @if ($piece->offer > 0)
-                            <p class="price">Price: <del>{{ $piece->price }}</del>€ <span> {{ $piece->price - ($piece->price * $piece->offer) }}€</span></p>
+                            <p class="price">{{__('messages.price')}}: <del>{{ $piece->price }}</del>€ <span> {{ $piece->price - ($piece->price * $piece->offer) }}€</span></p>
                         @else
-                            <p class="price">Price: <span>{{ $piece->price }}€</span></p>
+                            <p class="price">{{__('messages.price')}}: <span>{{ $piece->price }}€</span></p>
                         @endif
-                        <p class="info-text">State: {{ $piece->state }}</p>
-                        <p class="info-text">Discount: {{ $piece->offer * 100 }}%</p>
+                        <p class="info-text">{{__('messages.state')}}: {{ $piece->state }}</p>
+                        <p class="info-text">{{__('messages.discount')}}: {{ $piece->offer * 100 }}%</p>
                         <p class="info-text">
                             <i class="lni lni-tag"></i>:
                             @if($piece->categories->isNotEmpty())
@@ -68,7 +67,7 @@
                         
                             <p class="info-text">
                                 <i class="lni lni-heart"></i>
-                                Count: {{ $piece->favorites_lists_count }}</p>
+                                {{__('messages.count')}}: {{ $piece->favorites_lists_count }}</p>
 
                         <div class="button col">
                             <a href="{{ route('pieces.show', $piece) }}">
@@ -81,7 +80,7 @@
                         @auth
                         @if(Auth::user()->rol->name == "Admin")
                             <div class="button col">
-                                <a href="{{ route('pieces.edit', $piece) }}" class="btn bg-primary w-100">Edit</a>
+                                <a href="{{ route('pieces.edit', $piece) }}" class="btn bg-primary w-100">{{__('messages.edit')}}</a>
                             </div>
                         @else
                             <div class="button col mt-2">
@@ -91,7 +90,7 @@
                                     <input type="hidden" name="cart_id" value="{{ Auth::user()->cart->id }}">
                                     <input type="hidden" name="piece_id" value="{{ $piece->id }}">
                                     <input type="number" name="number" value="1" class="form-control mb-2" placeholder="Quantity" required>
-                                    <button type="submit" class="btn bg-primary w-100">Add to Cart</button>
+                                    <button type="submit" class="btn bg-primary w-100">{{__('messages.addToCart')}}</button>
                                 </form>
                             </div>
                         @endif

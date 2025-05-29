@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Cart;
+use App\Models\FavoritesList;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -24,6 +27,8 @@ class DatabaseSeeder extends Seeder
             PaymentSeeder::class,
             RolSeeder::class,
             UserSeeder::class,
+            FavoritesListSeeder::class,
+            CartSeeder::class,
             CategorySeeder::class,
             PieceSeeder::class,
             DiscountSeeder::class,
