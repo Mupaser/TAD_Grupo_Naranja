@@ -13,9 +13,9 @@
         <div class="product-info">
             <div class="info-body">
                 <h3 class="title">{{$discount->name}}</h3>
-                <p class="info-text">{{$discount->code}}</p>
-                <p class="info-text">{{$discount->percentage}}</p>
-                <p class="info-text">{{$discount->valid}}</p>
+                <p class="info-text">Code: {{$discount->code}}</p>
+                <p class="info-text">Percentage: {{$discount->percentage}}</p>
+                <p class="info-text">Valid: {{ $discount->valid ? 'true' : 'false' }}</p>
             </div>
             <div class="row">
                 <div class="button col">
