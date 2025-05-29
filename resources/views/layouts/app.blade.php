@@ -74,6 +74,7 @@
                                 <li><a href="{{ route('orders.index',Auth::user()) }}">Orders</a></li>
                                 <li><a href="{{ route('payments.index') }}">Payments</a></li>
                                 <li><a href="{{ route('categories.index') }}">Categories</a></li>
+                                <li><a href="{{ route('discounts.index') }}">Discounts</a></li>
                                 @else
                                 <li><a href="{{ route('pieces.index') }}">Pieces</a></li>
                                 <li><a href="{{ route('orders.index',Auth::user()) }}">Orders</a></li>

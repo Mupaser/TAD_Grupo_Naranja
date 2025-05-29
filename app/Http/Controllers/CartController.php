@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cart;
+use App\Models\Discount;
 
 class CartController extends Controller
 {
@@ -51,10 +52,20 @@ class CartController extends Controller
      */
     public function show(Cart $cart)
     {
+        if (!session('discount_success')) {
+            session()->forget(['cart_discount_percentage', 'cart_discount_code']);
+        }
+
         $totalAmount = 0;
         foreach($cart->cartLines as $cartLine)
             $totalAmount += $cartLine->totalPrice;
-        return view('carts.show', compact('cart','totalAmount'));
+
+        $discount = session('cart_discount_percentage', 0);
+        $discount_code = session('cart_discount_code', null);
+        $discountAmount = $totalAmount * ($discount / 100);
+        $finalAmount = $totalAmount - $discountAmount;
+
+        return view('carts.show', compact('cart', 'totalAmount', 'discount', 'discountAmount', 'finalAmount', 'discount_code'));
     }
 
     /**
@@ -93,5 +104,23 @@ class CartController extends Controller
     {
         $cart->delete();
         return redirect()->route('carts.index');
+    }
+
+    public function applyDiscount(Request $request, Cart $cart)
+    {
+        $discountCode = $request->input('discount_code');
+        $discount = Discount::where('code', $discountCode)->where('valid', true)->first();
+
+        if (!$discount) {
+            session()->forget(['cart_discount_percentage', 'cart_discount_code']);
+            return redirect()->route('carts.show', $cart)->withErrors(['discount_code' => 'Invalid or inactive discount code']);
+        }
+
+        session([
+            'cart_discount_percentage' => $discount->percentage,
+            'cart_discount_code' => $discount->code
+        ]);
+
+        return redirect()->route('carts.show', $cart)->with('discount_success', 'Discount applied: ' . $discount->percentage . '%');
     }
 }

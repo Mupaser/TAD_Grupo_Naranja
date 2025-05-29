@@ -9,7 +9,7 @@
     <label class="form-label">Address</label>
     <select class="form-control bg-light" name="address">
         @foreach (Auth::user()->addresses as $address)
-            <option value="Street {{$address->street}}, City {{$address->city}}, Country {{$address->country}} ">Street {{$address->street}}, City {{$address->city}}, Country {{$address->country}} </option>
+            <option value="{{$address->street}}, {{$address->city}}, {{$address->country}} ">{{$address->street}}, {{$address->city}}, {{$address->country}} </option>
         @endforeach
     </select></br>
     <label class="form-label">Phone</label>
@@ -22,5 +22,6 @@
     </select></br>
     <input hidden="true" class="form-control" type="number" name="user_id" value="{{Auth::user()->id}}" >
     <label class="form-label">Amount</label>
-    <input class="form-control" type="number" name="totalPrice" value="{{$totalAmount}}"></br>
+    <p class="form-control-plaintext mb-2">{{ $totalAmount }} €</p>
+    <input type="hidden" name="totalPrice" value="{{ $totalAmount }}">
 @endsection
