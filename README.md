@@ -169,6 +169,11 @@ A continuación, se describirán con mayor detalle los casos de uso del diagrama
 ![image](https://github.com/user-attachments/assets/22ec5071-3fe4-4db9-ae2a-efc0b41cb2de)
 ![image](https://github.com/user-attachments/assets/a55f1718-864b-4f09-b56b-2cb0bb1e0289)
 ![image](https://github.com/user-attachments/assets/61bad86a-55b0-471e-a7a6-7b6de994bf1e)
+![CU-25](https://github.com/user-attachments/assets/ccaed5a7-45bb-4434-a1e9-a8ec5bc2321e)
+![CU-26](https://github.com/user-attachments/assets/be5b73f9-b0c5-4da5-8ca4-e5688c46460e)
+![CU-27](https://github.com/user-attachments/assets/a90555cb-e2d7-466c-8b3a-8d64c6a077e1)
+![CU-28](https://github.com/user-attachments/assets/f563b4ce-03ec-4793-98c0-bb0d58c4ccdb)
+
 
 ## Mock-up
 A continuación, se muestra un esqueje de muy al principio del proyecto con ideas para la página de inicio
