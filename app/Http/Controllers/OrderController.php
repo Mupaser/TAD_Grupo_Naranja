@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderLine;
 use App\Models\Payment;
 use App\Models\User;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Auth;
 use PhpParser\Node\Expr\Cast\Double;
 
@@ -18,6 +19,20 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $client;
+    private $secret;
+    private $clientId;
+
+    public function __construct()
+    {
+        $this->client =new Client([
+            'base_uri' => 'https://api-m.sandbox.paypal.com'
+        ]);
+
+        $this->clientId = env('PAYPAL_CLIENT_ID');
+        $this->secret = env('PAYPAL_SECRET');
+    }
+
     public function index(User $user)
     {
         $orders = null;
@@ -121,5 +136,40 @@ class OrderController extends Controller
     {
         $order->delete();
         return redirect()->route('orders.index');
+    }
+
+    public function process($orderId){
+        
+        $response = $this->client->request('POST', '/v1/oauth2/token', [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Content-Type' => 'application/x-www-form-urlencoded',
+            ],
+            'body' => 'grant_type=client_credentials',
+
+            'auth' => [$this->clientId, $this->secret, 'basic']
+            ]
+        );
+
+        $data = json_decode($response->getBody(), true);
+        $access_token = $data['access_token'];
+
+        $response = $this->client->request('GET','/v2/checkout/orders/' . $orderId, [
+            'headers' => [
+                'Accept' => 'application/json',
+                'Autorization' => "Bearer $access_token"
+            ]
+        ]);
+
+        $data = json_decode($response->getBody(), true);
+        if ($data['status'] === 'APPROVED'){
+            $amount = $data['purchase_units'][0]['amount']['value'];
+            return [
+                'success' => true,
+            ];
+        }
+            return [
+                'success' => false
+            ];
     }
 }

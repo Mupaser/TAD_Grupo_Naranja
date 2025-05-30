@@ -66,6 +66,7 @@ Route::controller(OrderController::class)->group(function () {
     Route::get('orders/order/{order}', 'show')->name('orders.show');
     Route::get('orders/{order}/edit', 'edit')->name('orders.edit');
     Route::put('orders/{order}', 'update')->name('orders.update');
+    Route::get('/paypal/process/{orderId}', 'process')->name('paypal.process');
 });
 
 Route::controller(AddressController::class)->group(function () {
