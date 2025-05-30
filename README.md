@@ -136,13 +136,14 @@ En base a los objetivos establecidos anteriormente se derivan los siguientes req
 ![image](https://github.com/user-attachments/assets/550e55b8-0f73-40c2-ad46-7860ee65c5f3)
 
 A continuación, se describen los requisitos no funcionales, los cuales resumen apartados del proyecto cómo las tecnologías requeridas o aspectos de diseño. 
+
 ![image](https://github.com/user-attachments/assets/8a293d38-73e8-4981-8d0c-fad87e07f6b7)
 ![image](https://github.com/user-attachments/assets/4521cfa2-9a6a-4ea3-a18f-f7e9bcc7157a)
 ![image](https://github.com/user-attachments/assets/6a15e712-9762-4898-b492-f1ddeffe08dd)
 
 ## Casos de Uso y Diagrama de Casos de Uso
 A continuación, se observa el diagrama de casos de uso. 
-![image](https://github.com/user-attachments/assets/9192cfec-7829-4e87-8cb2-c28201123aa7)
+![image](https://github.com/user-attachments/assets/e05b953f-0067-45d0-bdd9-0c0d102f7212)
 
 A continuación, se describirán con mayor detalle los casos de uso del diagrama. 
 ![image](https://github.com/user-attachments/assets/422bb5d1-f9ea-488d-a48e-3e31630594a0)
